@@ -1,0 +1,23 @@
+###     MAP3121 - Calculo Numerico - Escola Politecnica                  ###
+###     Tarefa 3 - Modelagem de um Sistema de Resfriamento de Chips      ###
+
+###     Alunos deste grupo:                                              ###       
+###     Fabio Akira Yonamine   - NUSP 11805398                           ###
+###     Pedro H. Teodoro Silva - NUSP 11805314                           ###
+
+
+Prezados docentes, 
+
+Tal como instruido no PDF de instrucoes deste segundo Exercicio-Programa, 
+fez-se uso das seguintes ferramentas, que devem estar corretamente instaladas
+no computador para compilacao e uso:
+
+- Python 3.7 para redigir o algoritmo, em geral
+- Biblioteca Numpy, para calculos com exponenciais, o número pi e geração de vetores,
+  com as funções np.exp(x), np.pi e np.zeros((n,m))
+
+Para rodar este codigo e de fato testa-lo, um modo intuitivo envolve utilizar o
+programa Visual Studio Code (tambem conhecido como VSCode), disponivel para todas
+as plataformas, e abrir o arquivo ep2.py por meio deste. No proprio programa, 
+quando se abre um codigo em linguagem Python, ha um icone "Play" no canto superior
+direito, que roda o codigo aberto.
