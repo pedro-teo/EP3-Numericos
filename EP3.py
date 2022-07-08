@@ -54,9 +54,30 @@ def main():
 
     olaaa = "+3"
     print(calculaIntegral(-1,2,"("+"pow(x,2)"+")"+olaaa))
+    print(calculaIntegralNDois(-1,2,"("+"pow(x,2)"+")"+olaaa))
+    olaaa = "+1"
+    print(calculaIntegralNDois(0,2,"("+"3*pow(x,2)+6*x"+")"+olaaa))
+    print(calculaIntegral(0,2,"("+"3*pow(x,2)+6*x"+")"+olaaa))
+
+
+    #print(geraVetorValidacao())
 
 def calculaVetorb(n,funcao,):
     print(2)
+
+##  Funcao que gera o vetor de validacao do item 4.2.  ##
+def geraVetorValidacao(n,vetorX):
+    sol = np.zeros(n)
+    for i in range (0,n):
+        sol[n] = (vetorX[n])^2 + (1 - vetorX[n])^2
+    return sol
+
+##  Funcao que gera o vetor de validacao do complemento do item 4.2.  ##
+def geraVetorValidacaoAdicional(n,vetorX):
+    sol = np.zeros(n)
+    for i in range (0,n):
+        sol[n] = (vetorX[n] - 1) * (np.exp(-vetorX[n]) - 1)
+    return sol
 
 ##  Funcao que calcula integral simples em dx.                   ##
 ##  OBS: funcao NOVA, mas derivada do EP2                        ##
@@ -81,6 +102,28 @@ def calculaIntegral(a,b,funcao):
 
     ##  Retorna o resultado para a chamada de funcao.  ##
     return resultado
+
+def calculaIntegralNDois(a,b,funcao):
+    ## Cria matriz com valores de pesos e nos para n = 2
+    n2 = np.zeros((2,2))
+    n2 = [[-1/np.sqrt(3),1],[1/np.sqrt(3),1]]
+
+    ##  Inicializa a variavel que guardara o valor final da integral dupla desejada em zero.  ##
+    resultado = 0
+
+    ##  Funcao generica que define X, dada a transformação para S, para   ##
+    ##  que os limites de integracao da integral sejam -1 e 1, de modo a  ##
+    ##  usar os nos e pesos pre-fornecidos no enunciado.                  ##                                                  ##                               
+    funcaoX = "((b-a)*s + a + b)/2"
+
+    for i in range (0,2):
+        s = n2[i][0]
+        x = eval(funcaoX)
+        resultado = resultado + n2[i][1] * eval(funcao)
+    resultado = resultado * (b-a) / 2
+
+    ##  Retorna o resultado para a chamada de funcao.  ##
+    return resultado    
 
 ##  Funcao que retorna os vetores L e U de matrizes tridiagonais.  ##
 ##  OBS: FUNCAO DO EP1.                                            ##
