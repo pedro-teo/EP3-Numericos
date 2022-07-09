@@ -79,7 +79,7 @@ def geraVetorValidacaoAdicional(n,vetorX):
         sol[n] = (vetorX[n] - 1) * (np.exp(-vetorX[n]) - 1)
     return sol
 
-##  Funcao que calcula integral simples em dx.                   ##
+##  Funcao que calcula integral simples em dx (n = 10).          ##
 ##  OBS: funcao NOVA, mas derivada do EP2                        ##
 def calculaIntegral(a,b,funcao):
     ## Cria matriz com valores de pesos e nos para n = 10
@@ -103,6 +103,8 @@ def calculaIntegral(a,b,funcao):
     ##  Retorna o resultado para a chamada de funcao.  ##
     return resultado
 
+##  Funcao que calcula integral simples em dx (n = 2).           ##
+##  OBS: funcao NOVA, mas derivada do EP2                        ##
 def calculaIntegralNDois(a,b,funcao):
     ## Cria matriz com valores de pesos e nos para n = 2
     n2 = np.zeros((2,2))
