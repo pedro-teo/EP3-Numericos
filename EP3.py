@@ -53,7 +53,7 @@ def main():
     ## Calculo do vetor da funcao chapeu da equacao (8)
     b = np.zeros(n)
     for i in range(0, n): # COMECA EM ZERO E VAI ATE N-1
-        b[i] = calculaIntegralNDois(x[i],x[i+1],"("+funcao+")*(x-"+str(x[i])+")/"+str(h)) + calculaIntegralNDois(x[i+1],x[i+2],"("+funcao+")*("+str(x[i+2])+"-x)/"+str(h))
+        b[i] = calculaIntegral(x[i],x[i+1],"("+funcao+")*(x-"+str(x[i])+")/"+str(h)) + calculaIntegral(x[i+1],x[i+2],"("+funcao+")*("+str(x[i+2])+"-x)/"+str(h))
 
     print("Vetor b: ")
     print(b)
@@ -101,35 +101,11 @@ def geraVetorValidacaoProblemaDois(n,x):
         valoresExatos[i] = pow(x[i],2) + pow(1 - x[i],2)
     return valoresExatos
 
-##  Funcao que calcula integral simples em dx (n = 10).          ##
-##  Observacao: funcao NOVA, mas derivada do EP2.                ##
-def calculaIntegral(a,b,funcao):
-    ## Cria matriz com valores de pesos e nos para n = 10
-    n10 = np.zeros((10,2))
-    n10 = [[-0.9739065285171717200779640,0.0666713443086881375935688],[-0.8650633666889845107320967,0.1494513491505805931457763],[-0.6794095682990244062343274,0.2190863625159820439955349],[-0.4333953941292471907992659,0.2692667193099963550912269],[-0.1488743389816312108848260,0.2955242247147528701738930],[0.1488743389816312108848260,0.2955242247147528701738930],[0.4333953941292471907992659,0.2692667193099963550912269],[0.6794095682990244062343274,0.2190863625159820439955349],[0.8650633666889845107320967,0.1494513491505805931457763],[0.9739065285171717200779640,0.0666713443086881375935688]]
-    
-    ##  Inicializa a variavel que guardara o valor final da integral dupla desejada em zero.  ##
-    resultado = 0
-
-    ##  Funcao generica que define X, dada a transformação para S, para   ##
-    ##  que os limites de integracao da integral sejam -1 e 1, de modo a  ##
-    ##  usar os nos e pesos pre-fornecidos no enunciado.                  ##                                                  ##                               
-    funcaoX = "((b-a)*s + a + b)/2"
-
-    for i in range (0,10):
-        s = n10[i][0]
-        x = eval(funcaoX)
-        resultado = resultado + n10[i][1] * eval(funcao)
-    resultado = resultado * (b-a) / 2
-
-    ##  Retorna o resultado para a chamada de funcao.  ##
-    return resultado
-
 ##  Funcao que calcula integral simples em dx, com n = 2.        ##
 ##  Observacao: funcao derivada das presentes no EP2,            ##
 ##  porem alterada para calcular integrais simples em            ##
 ##  dx, com n = 2 somente.                                       ##
-def calculaIntegralNDois(a,b,funcao):
+def calculaIntegral(a,b,funcao):
     ## Cria matriz com valores de pesos e nos para n = 2
     n2 = np.zeros((2,2))
     n2 = [[-1/np.sqrt(3),1],[1/np.sqrt(3),1]]
