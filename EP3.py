@@ -25,7 +25,6 @@ def main():
     x = np.zeros(n+2)
     for i in range(0, n+2):
         x[i] = i*h
-        ##print(x[i])
     print("Valores do vetor x:")
     print(x)
 
