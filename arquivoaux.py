@@ -16,3 +16,11 @@
                 #qalo
                 resposta[i] = resposta[i] + 0
     print(resposta)
+
+    # comentarios para teste de calculo de integral
+    #olaaa = "+3"
+    #print(calculaIntegral(-1,2,"("+"pow(x,2)"+")"+olaaa))
+    #print(calculaIntegralNDois(-1,2,"("+"pow(x,2)"+")"+olaaa))
+    #olaaa = "+1"
+    #print(calculaIntegralNDois(0,2,"("+"3*pow(x,2)+6*x"+")"+olaaa))
+    #print(calculaIntegral(0,2,"("+"3*pow(x,2)+6*x"+")"+olaaa))

@@ -52,13 +52,6 @@ def main():
     print("vetor alfa resolvido: ")
     print(vetorAlfa)
 
-    #olaaa = "+3"
-    #print(calculaIntegral(-1,2,"("+"pow(x,2)"+")"+olaaa))
-    #print(calculaIntegralNDois(-1,2,"("+"pow(x,2)"+")"+olaaa))
-    #olaaa = "+1"
-    #print(calculaIntegralNDois(0,2,"("+"3*pow(x,2)+6*x"+")"+olaaa))
-    #print(calculaIntegral(0,2,"("+"3*pow(x,2)+6*x"+")"+olaaa))
-
     #print(geraVetorValidacao(5,x))
 
     #print("Para u = 1, valor esperado: "+str((0.5)^2+(0.5)^2))
