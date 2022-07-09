@@ -6,24 +6,19 @@ h = 3434
 vetorAlfa = np.zeros(23)
 # fim do cabecalho inutil
 
-## to achando que esses for aqui tao errados K
-resposta = np.zeros(n+2)
-for i in range(0, n+1):
-    print(x[i])
-    for j in range(1, n+1):
-        print("par:")
-        print(x[j-1])
-        print(x[j])
-        print(x[j+1])
-        print()
-        if  (x[i] >= x[j-1] and x[i] <= x[j]):
-            resposta[i] = resposta[i] + vetorAlfa[j] * (x[i]-x[j-1])/h
-        elif(x[i] <= x[j+1] and x[i] >= x[j]):
-            resposta[i] = resposta[i] + vetorAlfa[j] * (x[j+1]-x[i])/h
-        else:
-            #qalo
-            resposta[i] = resposta[i] + 0
-    print(resposta)
+##### vDesejado eh um numero qualquer q eu desejo calcular, q eu escolhi 0.3 aqui
+vDesejado = 0.3
+rAproximado = 0
+for i in range(0, n):
+    if (vDesejado <= x[i+1] and vDesejado >= x[i]):
+        rAproximado = rAproximado + vetorAlfa[i] * (vDesejado - x[i]) / h
+    elif (vDesejado <= x[i+2] and vDesejado >= x[i+1]):
+        rAproximado = rAproximado + vetorAlfa[i] * (x[i+2] - vDesejado) / h
+
+print("Valor aproximado: ")
+print(rAproximado)
+print("Valor exato: ")
+print( pow(vDesejado,2) * pow((1 - vDesejado),2))
 
     # comentarios para teste de calculo de integral
     #olaaa = "+3"
