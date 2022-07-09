@@ -67,8 +67,9 @@ def main():
 
     #print("Para u = 1, valor esperado: "+str((0.5)^2+(0.5)^2))
     #print(funcaoTeste(5,0,1,x))
-    print(geraVetorValidacao(5,x))
+    print(geraVetorValidacao(n,x))
 
+    print(vetorAlfa - geraVetorValidacao(n,x))
     # resposta para um x especifico
     valorxespec = 0.5
     #for i in range (1,n+1):
@@ -78,8 +79,8 @@ def main():
 def geraVetorValidacao(n,x):
     valoresExatos = np.zeros(n)
 
-    for i in range (0,n):
-        valoresExatos[i] = pow(x[i],2) * pow(1 - x[i],2)
+    for i in range (1,n+1):
+        valoresExatos[i-1] = pow(x[i],2) * pow(1 - x[i],2)
     return valoresExatos
 
 def geraVetorValidacaoProblemaDois(n,x):
