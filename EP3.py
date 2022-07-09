@@ -35,8 +35,8 @@ def main():
 
     for i in range(0, n):
         diagA[i] = -1/h
-        diagC[i] = diagA[i]
-        diagB[i] = 2/h
+        diagB[i] =  2/h
+        diagC[i] = -1/h
 
     ## Calculo do vetor da funcao chapeu da equacao (8)
     b = np.zeros(n)
