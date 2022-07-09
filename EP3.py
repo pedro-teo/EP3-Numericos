@@ -13,7 +13,7 @@ def main():
     ##  Escolha do n desejado para os calculos subsequentes.  ##
     #n = int(input("Digite o n para as analises: "))
     #L = int(input("Digite o L para as analises: ")) ## L = 1 para comecar
-    n = 5
+    n = 7
     L = 1
     funcao = "12*x*(1-x)-2"
 
@@ -33,15 +33,27 @@ def main():
     diagB = np.zeros(n)
     diagC = np.zeros(n)
 
-    for i in range(0, n):
+    diagA[0] = 0
+    diagB[0] = 2/h
+    diagC[0] = -1/h
+
+    diagA[n-1] = -1/h
+    diagB[n-1] = 2/h
+    diagC[n-1] = 0
+
+    for i in range(1, n-1):
         diagA[i] = -1/h
         diagB[i] =  2/h
         diagC[i] = -1/h
 
+    print(diagA)
+    print(diagB)
+    print(diagC)
+
     ## Calculo do vetor da funcao chapeu da equacao (8)
     b = np.zeros(n)
     for i in range(0, n): # COMECA EM ZERO E VAI ATE N-1
-        b[i] = calculaIntegralNDois(x[i],x[i+1],"("+funcao+")*(x-"+str(x[i])+")/"+str(h)) + calculaIntegral(x[i+1],x[i+2],  "("+str(x[i+1])+"-x)/"+str(h))
+        b[i] = calculaIntegralNDois(x[i],x[i+1],"("+funcao+")*(x-"+str(x[i])+")/"+str(h)) + calculaIntegralNDois(x[i+1],x[i+2],"("+funcao+")*("+str(x[i+2])+"-x)/"+str(h))
 
     print("Vetor b: ")
     print(b)
