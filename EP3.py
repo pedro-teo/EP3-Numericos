@@ -94,8 +94,10 @@ def main():
 
     print(vetorAlfa - geraVetorValidacao(n,x))
 
-    geraVetorValidacaoProblemaDois(n,x)
+    print(geraVetorValidacaoProblemaDois(n,x))
         
+def resolveMEF():
+    return 1
 
 ##  Funcao que gera o vetor de validacao do item 4.2.  ##
 def geraVetorValidacao(n,x):
@@ -110,7 +112,7 @@ def geraVetorValidacaoProblemaDois(n,x):
     
     for i in range (0,n+2):
         valoresExatos[i] = (x[i] - 1) * (np.exp(-x[i]) - 1)
-        
+
     return valoresExatos
 
 ##  Funcao que calcula integral simples em dx, com n = 2.        ##
