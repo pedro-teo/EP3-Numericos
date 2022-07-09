@@ -6,9 +6,9 @@
 ###     Pedro H. Teodoro Silva - NUSP 11805314                           ###
 
 
-Prezados docentes, 
+Prezados docentes e monitores, 
 
-Tal como instruido no PDF de instrucoes deste segundo Exercicio-Programa, 
+Tal como instruido no PDF de instrucoes deste terceiro e último Exercicio-Programa, 
 fez-se uso das seguintes ferramentas, que devem estar corretamente instaladas
 no computador para compilacao e uso:
 
@@ -18,6 +18,6 @@ no computador para compilacao e uso:
 
 Para rodar este codigo e de fato testa-lo, um modo intuitivo envolve utilizar o
 programa Visual Studio Code (tambem conhecido como VSCode), disponivel para todas
-as plataformas, e abrir o arquivo ep2.py por meio deste. No proprio programa, 
+as plataformas, e abrir o arquivo EP3.py por meio deste. No proprio programa, 
 quando se abre um codigo em linguagem Python, ha um icone "Play" no canto superior
 direito, que roda o codigo aberto.
