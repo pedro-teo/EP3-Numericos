@@ -149,16 +149,9 @@ def calculaIntegralNDois(a,b,funcao):
     ##  Retorna o resultado para a chamada de funcao.  ##
     return resultado    
 
-##  Funcao que retorna os vetores L e U de matrizes tridiagonais.  ##
-##  OBS: FUNCAO DO EP1.                                            ##
-def decomposicaoLU(n, diagA, diagB, diagC,vetU,vetL):
-    vetU[0] = diagB[0]
-    for i in range (1,n):
-        vetL[i] = (diagA[i])/vetU[i-1]
-        vetU[i] = diagB[i] - vetL[i]*diagC[i-1]
-
 ##  Funcao que resolve uma matriz tridiagonal usando vetores com otimizacao.  ##
-##  OBS: FUNCAO DO EP1.                                                       ##
+##  Observacao: funcao reproduzida integralmente do EP1 entregue.             ##
+##  Observacao: esta funcao necessita da funcao decomposicaoLU, abaixo.       ##
 def resolveTridiagonal(n, diagA, diagB, diagC, d):
     ## Geracao dos vetores L e U do sistema ##
     vetU = np.zeros(n)
@@ -181,6 +174,14 @@ def resolveTridiagonal(n, diagA, diagB, diagC, d):
     
     ## Retorna o vetor x ##
     return vetX
+
+##  Funcao que retorna os vetores L e U de matrizes tridiagonais.  ##
+##  Observacao: funcao reproduzida integralmente do EP1 entregue.  ##
+def decomposicaoLU(n, diagA, diagB, diagC,vetU,vetL):
+    vetU[0] = diagB[0]
+    for i in range (1,n):
+        vetL[i] = (diagA[i])/vetU[i-1]
+        vetU[i] = diagB[i] - vetL[i]*diagC[i-1]
 
 ##  Comanda o programa a voltar para a funcao main.  ##
 if __name__ == '__main__':
