@@ -110,6 +110,7 @@ def geraVetorValidacaoProblemaDois(n,x):
     
     for i in range (0,n+2):
         valoresExatos[i] = (x[i] - 1) * (np.exp(-x[i]) - 1)
+        
     return valoresExatos
 
 ##  Funcao que calcula integral simples em dx, com n = 2.        ##
