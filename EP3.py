@@ -41,7 +41,7 @@ def main():
     ## Calculo do vetor da funcao chapeu da equacao (8)
     b = np.zeros(n)
     for i in range(0, n): # COMECA EM ZERO E VAI ATE N-1
-        b[i] = calculaIntegralNDois(x[i-1],x[i],"("+funcao+")*(x-"+str(x[i-1])+")/"+str(h)) + calculaIntegral(x[i],x[i+1],  "("+str(x[i+1])+"-x)/"+str(h)) 
+        b[i] = calculaIntegralNDois(x[i],x[i+1],"("+funcao+")*(x-"+str(x[i])+")/"+str(h)) + calculaIntegral(x[i+1],x[i+2],  "("+str(x[i+1])+"-x)/"+str(h))
 
     print("Vetor b: ")
     print(b)
