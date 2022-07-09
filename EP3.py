@@ -102,7 +102,7 @@ def geraVetorValidacaoProblemaDois(n,x):
     return valoresExatos
 
 ##  Funcao que calcula integral simples em dx (n = 10).          ##
-##  OBS: funcao NOVA, mas derivada do EP2                        ##
+##  Observacao: funcao NOVA, mas derivada do EP2.                ##
 def calculaIntegral(a,b,funcao):
     ## Cria matriz com valores de pesos e nos para n = 10
     n10 = np.zeros((10,2))
@@ -125,8 +125,10 @@ def calculaIntegral(a,b,funcao):
     ##  Retorna o resultado para a chamada de funcao.  ##
     return resultado
 
-##  Funcao que calcula integral simples em dx (n = 2).           ##
-##  OBS: funcao NOVA, mas derivada do EP2                        ##
+##  Funcao que calcula integral simples em dx, com n = 2.        ##
+##  Observacao: funcao derivada das presentes no EP2,            ##
+##  porem alterada para calcular integrais simples em            ##
+##  dx, com n = 2 somente.                                       ##
 def calculaIntegralNDois(a,b,funcao):
     ## Cria matriz com valores de pesos e nos para n = 2
     n2 = np.zeros((2,2))
