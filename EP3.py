@@ -93,6 +93,8 @@ def main():
     print(geraVetorValidacao(n,x))
 
     print(vetorAlfa - geraVetorValidacao(n,x))
+
+    geraVetorValidacaoProblemaDois(n,x)
         
 
 ##  Funcao que gera o vetor de validacao do item 4.2.  ##
@@ -104,10 +106,10 @@ def geraVetorValidacao(n,x):
     return valoresExatos
 
 def geraVetorValidacaoProblemaDois(n,x):
-    valoresExatos = np.zeros(n)
+    valoresExatos = np.zeros(n+2)
     
-    for i in range (0,n):
-        valoresExatos[i] = pow(x[i],2) + pow(1 - x[i],2)
+    for i in range (0,n+2):
+        valoresExatos[i] = (x[i] - 1) * (np.exp(-x[i]) - 1)
     return valoresExatos
 
 ##  Funcao que calcula integral simples em dx, com n = 2.        ##
