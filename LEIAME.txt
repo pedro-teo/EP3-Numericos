@@ -8,7 +8,7 @@
 
 Prezados docentes e monitores, 
 
-Tal como instruido no PDF de instrucoes deste terceiro e último Exercicio-Programa, 
+Tal como instruido no PDF de instrucoes deste terceiro e ultimo Exercicio-Programa, 
 fez-se uso das seguintes ferramentas, que devem estar corretamente instaladas
 no computador para compilacao e uso:
 
