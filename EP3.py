@@ -86,9 +86,9 @@ def main():
     print("ALOO")
     print(calculaMEF(n, L, funcao, '1', 0))
 
-    print(calculaMEF(n, L,"np.exp(x)+1", "np.exp(x)", 0))
+    print("resultado do PDF adicional:\n", calculaMEF(n, L,"np.exp(x)+1", "np.exp(x)", 0))
 
-    print(geraVetorValidacaoProblemaDois(n,x))
+    print("resutado exato:\n", geraVetorValidacaoProblemaDois(n,x))
 
 def calculaMEF(n, L, funcaoX, funcaoK, funcaoQ):
     ##  Cálculo do intervalo entre pontos.  ##
