@@ -10,95 +10,34 @@ import numpy as np
 
 ##  Funcao principal.  ##
 def main():
-    print("Item 4.2 - Validacao")
+    ##  Uso do MEF para resolucao do primeiro problema de validacao disponibilizado.  ##
+    print("\nItem 4.2 - Primeira validacao")
+
+    ##  Dados do primeiro problema de validacao.  ##
     n = 31
     L = 1
-    funcao = "12*x*(1-x)-2"
-
+    funcaoX = "12*x*(1-x)-2"
     k = "1"
     q = "0"
 
-    print(calculaMEF(31 , 1 , "12*x*(1-x)-2" , "1" , 0))
-    print(geraVetorValidacaoProblemaUm(n))
+    ##  Chama as funcoes para calcular valores esperados e exatos, assim como o erro maximo.  ##
+    vetoruAproximado = calculaMEF(n , L , funcaoX , k , q)
+    vetoruExato = geraVetorValidacaoProblemaUm(n)
+    print(calculaErroMaximo(n, vetoruAproximado, vetoruExato))
 
 
-    ##  Cálculo do intervalo entre pontos.  ##
-    h = L/(n+1)
-    print("\nIntervalo entre pontos: "+str(h))
+    #print(calculaMEF(n, L, funcao, "1", 0))
 
-    ##  Criacao do vetor com valores x_i.  ##
-    x = np.zeros(n+2)
-    for i in range(0, n+2):
-        x[i] = i*h
-    print("Valores do vetor x:")
-    print(x)
+    #print("resultado do PDF adicional:\n", calculaMEF(n, L,"np.exp(x)+1", "np.exp(x)", 0))
+    #print("resutado exato:\n", geraVetorValidacaoProblemaDois(n,x))
 
-    ## Criacao da matriz A da equacao (8)
-    diagA = np.zeros(n)
-    diagB = np.zeros(n)
-    diagC = np.zeros(n)
-
-    for i in range (0, n):
-        diagB[i] = pow((1/h),2) * calculaIntegral(x[i], x[i+1], k) + pow((-1/h),2)*calculaIntegral(x[i+1], x[i+2], k)
-
-    for i in range (0, n-1):
-        diagC[i] = -1*pow(1/h,2) * calculaIntegral(x[i+1], x[i+2], k)
-
-    for i in range (1, n):
-        diagA[i] = -1*pow(1/h,2) * calculaIntegral(x[i], x[i+1], k)
-
-    print("a")
-    print(diagA)
-    print("b")
-    print(diagB)
-    print("c")
-    print(diagC)
-
-    ## Calculo do vetor da funcao chapeu da equacao (8)
-    b = np.zeros(n)
-    for i in range(0, n): # COMECA EM ZERO E VAI ATE N-1
-        b[i] = calculaIntegral(x[i],x[i+1],"("+funcao+")*(x-"+str(x[i])+")/"+str(h)) + calculaIntegral(x[i+1],x[i+2],"("+funcao+")*("+str(x[i+2])+"-x)/"+str(h))
-
-    print("Vetor b: ")
-    print(b)
-
-    ##  Resolve sistema matricial para achar o vetor alfa.  ##
-    vetorAlfa = resolveTridiagonal(n,diagA,diagB,diagC,b)
-    print("vetor alfa resolvido: ")
-    print(vetorAlfa)
-
-    ##  Finalmente, calculo do valor aproximado.  ##
-    vetoruExato      = np.zeros(n+2)
-    vetoruAproximado = np.zeros(n+2)
-
-    for j in range(0,n+2):
-        rAproximado = 0
-        for i in range(0, n):
-            if (x[j] <= x[i+1] and x[j] >= x[i]):
-                rAproximado = rAproximado + vetorAlfa[i] * (x[j] - x[i]) / h
-            elif (x[j] <= x[i+2] and x[j] >= x[i+1]):
-                rAproximado = rAproximado + vetorAlfa[i] * (x[i+2] - x[j]) / h
-        vetoruAproximado[j] = rAproximado
-        vetoruExato[j] =  pow(x[j],2) * pow((1 - x[j]),2)
-
-    print("Vetor com valores aproximados:\n", vetoruAproximado)
-    print("Vetor com valores exatos:\n", vetoruExato)
-
-    erro = 0
+def calculaErroMaximo(n, vetoruAproximado, vetoruExato):
+    erroMaximo = 0
     for i in range (0,n):
         diferencaModulo = abs(vetoruAproximado[i] - vetoruExato[i])
-        print(diferencaModulo)
-        if(diferencaModulo > erro):
-            erro = diferencaModulo
-    
-    print("Erro: ", erro)
-
-    print("ALOO")
-    print(calculaMEF(n, L, funcao, "1", 0))
-
-    print("resultado do PDF adicional:\n", calculaMEF(n, L,"np.exp(x)+1", "np.exp(x)", 0))
-
-    print("resutado exato:\n", geraVetorValidacaoProblemaDois(n,x))
+        if(diferencaModulo > erroMaximo):
+            erroMaximo = diferencaModulo
+    return erroMaximo
 
 def calculaMEF(n, L, funcaoX, funcaoK, funcaoQ):
     ##  Cálculo do intervalo entre pontos.  ##
