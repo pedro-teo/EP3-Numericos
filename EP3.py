@@ -155,6 +155,7 @@ def calculaMEF(n, L, funcaoX, funcaoK, funcaoQ):
         vetoruAproximado[j] = rAproximado
         vetoruExato[j] =  pow(x[j],2) * pow((1 - x[j]),2)
 
+    ##  Retorna vetor com os valores aproximados, nos pontos x_i.  ##
     return vetoruAproximado
 
 ##  Funcao que gera o vetor de validacao do item 4.2.  ##
