@@ -7,23 +7,44 @@
 
 ##  Importacao da biblioteca numpy, com abreviacao np.  ##
 import numpy as np
+##  Importacao da biblioteca 
+import matplotlib.pyplot as plt
 
 ##  Funcao principal.  ##
 def main():
+    ##  Menu que fornece as opcoes disponiveis neste EP 3.  ##
+    print("Veja as opcoes disponiveis... ")
+    print("1. Secao 4.2 - Validacao")
+    print("2. Secao 4.2 - Validacao complementar")
+    print("3. ")
+    print("4. ")
+    menuChoice = int(input("Digite o numero da opcao desejada para calculos: "))
+
     ##  Uso do MEF para resolucao do primeiro problema de validacao disponibilizado.  ##
-    print("\nItem 4.2 - Primeira validacao")
+    if(menuChoice==1):
+        print("\nItem 4.2 - Primeira validacao")
 
-    ##  Vetor com os n valores pedidos.  ##
-    n = [7,15,31,63]
+        ##  Vetor que guarda os quatro valores de erro maximo, para cada n.  ##
+        vetorErroMaximo = np.zeros(4)
 
-    ##  Dados do primeiro problema de validacao.  ##
-    L = 1
-    funcaoX = "12*x*(1-x)-2"
-    k = "1"
-    q = "0"
+        ##  Dados do primeiro problema de validacao.  ##
+        L = 1
+        funcaoX = "12*x*(1-x)-2"
+        k = "1"
+        q = "0"
 
-    ##  Vetor que guarda os quatro valores de erro maximo, para cada n.  ##
-    vetorErroMaximo = np.zeros(4)
+        ##  Calculos para n = 7.  ##
+        print("\nPara n = 7: ")
+        vetoruAproximadoNSete = calculaMEF(7 , L , funcaoX , k , q)
+        vetoruExatoNSete = geraVetorValidacaoProblemaUm(7)
+        vetorErroMaximoNSete = calculaErroMaximo(7, vetoruAproximadoNSete, vetoruExatoNSete)
+        print("     Valores aproximados:\n", vetoruAproximadoNSete)
+        print("     Valores exatos:\n", vetoruExatoNSete)
+        print("     Erro maximo obtido: ", vetorErroMaximoNSete)
+
+
+    elif(menuChoice==2):
+        print(1)
 
     for i in range(0,4):
     ##  Chama as funcoes para calcular valores esperados e exatos, assim como o erro maximo.  ##
@@ -35,9 +56,41 @@ def main():
         print("     Valores exatos:\n", vetoruExato)
         print("     Erro maximo obtido: ", vetorErroMaximo[i])
 
-    print("\n     Em suma, para o primeiro problema de validacao, foram obtidos\n     os seguintes erros maximos, reapresentados aqui juntos:")
+    print("\n     Em suma, para o primeiro problema de validacao, foram obtidos\n     os seguintes erros maximos, reapresentados aqui juntos:\n")
     for i in range(0,4):
         print("     Erro maximo ( n =",n[i],"): ",vetorErroMaximo[i])
+
+    h = L/(63+1)
+    x = np.zeros(63+2)
+    for i in range(0, 63+2):
+        x[i] = i*h
+    
+    fig, ax = plt.subplots(2,2)
+    ax[1,1].plot(x, vetoruAproximado, label='Valor aproximado', marker = '.')
+    ax[1,1].plot(x, vetoruExato, label='Valor exato', marker = '.')
+    #ax.set_title('Valores aproximados e exatos da primeira validacao')
+    #ax.set_xlabel('Valor de x')
+    #ax.set_ylabel('Valores obtidos')
+
+    #fig, ax2 = plt.subplots()
+    #line1, = ax2.plot(x, vetoruAproximado, label='Valor aproximado', marker = '.')
+    #line2, = ax2.plot(x, vetoruExato, label='Valor exato', marker = '.')
+    
+
+
+    ax[1,1].legend()
+    plt.show()
+
+    ########################################################################################
+
+    ##  Uso do MEF para resolucao do segundo problema de validacao disponibilizado.  ##
+    print("\nItem 4.2 - Segunda validacao")
+
+    ##  Dados do segundo problema de validacao.  ##
+    L = 1
+    funcaoX = "np.exp(x)+1"
+    k = "np.exp(x)"
+    q = "0"
 
     #print(calculaMEF(n, L, funcao, "1", 0))
 
