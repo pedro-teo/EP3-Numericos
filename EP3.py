@@ -30,14 +30,23 @@ def main():
         ##  Dados do primeiro problema de validacao.  ##
         L = 1
         funcaoX = "12*x*(1-x)-2"
-        k = "1"
-        q = "0"
+        funcaoK = "1"
+        funcaoQ = "0"
 
         ##  Calculos para n = 7.  ##
         print("\nPara n = 7: ")
-        vetoruAproximadoNSete = calculaMEF(7 , L , funcaoX , k , q)
+        vetoruAproximadoNSete = calculaMEF(7 , L , funcaoX , funcaoK , funcaoQ)
         vetoruExatoNSete = geraVetorValidacaoProblemaUm(7)
         vetorErroMaximoNSete = calculaErroMaximo(7, vetoruAproximadoNSete, vetoruExatoNSete)
+        print("     Valores aproximados:\n", vetoruAproximadoNSete)
+        print("     Valores exatos:\n", vetoruExatoNSete)
+        print("     Erro maximo obtido: ", vetorErroMaximoNSete)
+
+        ##  Calculos para n = 15.  ##
+        print("\nPara n = 15: ")
+        vetoruAproximadoNQuinze = calculaMEF(15 , L , funcaoX , funcaoK , funcaoQ)
+        vetoruExatoNQuinze = geraVetorValidacaoProblemaUm(15)
+        vetorErroMaximoNQuinze = calculaErroMaximo(15, vetoruAproximadoNQuinze, vetoruExatoNSete)
         print("     Valores aproximados:\n", vetoruAproximadoNSete)
         print("     Valores exatos:\n", vetoruExatoNSete)
         print("     Erro maximo obtido: ", vetorErroMaximoNSete)
@@ -46,28 +55,28 @@ def main():
     elif(menuChoice==2):
         print(1)
 
-    for i in range(0,4):
+    #for i in range(0,4):
     ##  Chama as funcoes para calcular valores esperados e exatos, assim como o erro maximo.  ##
-        print("\nPara n = ",n[i],"...")
-        vetoruAproximado = calculaMEF(n[i] , L , funcaoX , k , q)
-        vetoruExato = geraVetorValidacaoProblemaUm(n[i])
-        vetorErroMaximo[i] = calculaErroMaximo(n[i], vetoruAproximado, vetoruExato)
-        print("     Valores aproximados:\n", vetoruAproximado)
-        print("     Valores exatos:\n", vetoruExato)
-        print("     Erro maximo obtido: ", vetorErroMaximo[i])
+    #    print("\nPara n = ",n[i],"...")
+    #    vetoruAproximado = calculaMEF(n[i] , L , funcaoX , k , q)
+    #    vetoruExato = geraVetorValidacaoProblemaUm(n[i])
+    #    vetorErroMaximo[i] = calculaErroMaximo(n[i], vetoruAproximado, vetoruExato)
+    #    print("     Valores aproximados:\n", vetoruAproximado)
+    #    print("     Valores exatos:\n", vetoruExato)
+    #    print("     Erro maximo obtido: ", vetorErroMaximo[i])
+    #
+    #print("\n     Em suma, para o primeiro problema de validacao, foram obtidos\n     os seguintes erros maximos, reapresentados aqui juntos:\n")
+    #for i in range(0,4):
+    #    print("     Erro maximo ( n =",n[i],"): ",vetorErroMaximo[i])
 
-    print("\n     Em suma, para o primeiro problema de validacao, foram obtidos\n     os seguintes erros maximos, reapresentados aqui juntos:\n")
-    for i in range(0,4):
-        print("     Erro maximo ( n =",n[i],"): ",vetorErroMaximo[i])
-
-    h = L/(63+1)
-    x = np.zeros(63+2)
-    for i in range(0, 63+2):
-        x[i] = i*h
+    #h = L/(63+1)
+    #x = np.zeros(63+2)
+    #for i in range(0, 63+2):
+    #    x[i] = i*h
     
-    fig, ax = plt.subplots(2,2)
-    ax[1,1].plot(x, vetoruAproximado, label='Valor aproximado', marker = '.')
-    ax[1,1].plot(x, vetoruExato, label='Valor exato', marker = '.')
+    #fig, ax = plt.subplots(2,2)
+    #ax[1,1].plot(x, vetoruAproximado, label='Valor aproximado', marker = '.')
+    #ax[1,1].plot(x, vetoruExato, label='Valor exato', marker = '.')
     #ax.set_title('Valores aproximados e exatos da primeira validacao')
     #ax.set_xlabel('Valor de x')
     #ax.set_ylabel('Valores obtidos')
@@ -78,8 +87,8 @@ def main():
     
 
 
-    ax[1,1].legend()
-    plt.show()
+    #ax[1,1].legend()
+    #plt.show()
 
     ########################################################################################
 
@@ -192,7 +201,8 @@ def geraVetorValidacaoProblemaUm(n):
         valoresExatos[i] = pow(x[i],2) * pow(1 - x[i],2)
     return valoresExatos
 
-def geraVetorValidacaoProblemaDois(n,x):
+##  Funcao que gera o vetor de validacao do complemento do item 4.2.  ##
+def geraVetorValidacaoProblemaDois(n):
     valoresExatos = np.zeros(n+2)
     
     for i in range (0,n+2):
