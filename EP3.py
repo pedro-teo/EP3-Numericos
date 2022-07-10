@@ -124,8 +124,10 @@ def geraVetorValidacaoProblemaDois(n,x):
         valoresExatos[i] = pow(x[i],2) + pow(1 - x[i],2)
     return valoresExatos
 
-##  Funcao que calcula integral simples em dx (n = 2).           ##
-##  OBS: funcao NOVA, mas derivada do EP2                        ##
+##  Funcao que calcula integral simples em dx, com n = 2.        ##
+##  Observacao: funcao derivada das presentes no EP2,            ##
+##  porem alterada para calcular integrais simples em            ##
+##  dx, com n = 2 somente.                                       ##
 def calculaIntegral(a,b,funcao):
     ## Cria matriz com valores de pesos e nos para n = 2
     n2 = np.zeros((2,2))
@@ -149,7 +151,7 @@ def calculaIntegral(a,b,funcao):
     return resultado    
 
 ##  Funcao que retorna os vetores L e U de matrizes tridiagonais.  ##
-##  OBS: FUNCAO DO EP1.                                            ##
+##  Observacao: funcao reproduzida integralmente do EP1 entregue.  ##
 def decomposicaoLU(n, diagA, diagB, diagC,vetU,vetL):
     vetU[0] = diagB[0]
     for i in range (1,n):
@@ -157,7 +159,8 @@ def decomposicaoLU(n, diagA, diagB, diagC,vetU,vetL):
         vetU[i] = diagB[i] - vetL[i]*diagC[i-1]
 
 ##  Funcao que resolve uma matriz tridiagonal usando vetores com otimizacao.  ##
-##  OBS: FUNCAO DO EP1.                                                       ##
+##  Observacao: funcao reproduzida integralmente do EP1 entregue.             ##
+##  Observacao: esta funcao necessita da funcao decomposicaoLU, abaixo.       ##
 def resolveTridiagonal(n, diagA, diagB, diagC, d):
     ## Geracao dos vetores L e U do sistema ##
     vetU = np.zeros(n)
