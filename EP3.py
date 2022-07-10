@@ -10,15 +10,17 @@ import numpy as np
 
 ##  Funcao principal.  ##
 def main():
-    ##  Escolha do n desejado para os calculos subsequentes.  ##
-    #n = int(input("Digite o n para as analises: "))
-    #L = int(input("Digite o L para as analises: ")) ## L = 1 para comecar
-    n = 7
+    print("Item 4.2 - Validacao")
+    n = 31
     L = 1
     funcao = "12*x*(1-x)-2"
 
     k = "1"
     q = "0"
+
+    print(calculaMEF(31 , 1 , "12*x*(1-x)-2" , "1" , 0))
+
+
 
     ##  Cálculo do intervalo entre pontos.  ##
     h = L/(n+1)
@@ -40,11 +42,10 @@ def main():
         diagB[i] = pow((1/h),2) * calculaIntegral(x[i], x[i+1], k) + pow((-1/h),2)*calculaIntegral(x[i+1], x[i+2], k)
 
     for i in range (0, n-1):
-        diagC[i] = -1*pow(1/h,2) * calculaIntegral(x[i], x[i+1], k)
+        diagC[i] = -1*pow(1/h,2) * calculaIntegral(x[i+1], x[i+2], k)
 
     for i in range (1, n):
-        diagA[i] = -1*pow(1/h,2) * calculaIntegral(x[i-1], x[i], k)
-
+        diagA[i] = -1*pow(1/h,2) * calculaIntegral(x[i], x[i+1], k)
 
     print("a")
     print(diagA)
@@ -122,11 +123,11 @@ def calculaMEF(n, L, funcaoX, funcaoK, funcaoQ):
 
     ##  Calculo da diagonal acima da diagonal principal.  ##
     for i in range (0, n-1):
-        diagC[i] = -1 * pow((1/h),2) * calculaIntegral(x[i], x[i+1], funcaoK)
+        diagC[i] = -1 * pow((1/h),2) * calculaIntegral(x[i+1], x[i+2], funcaoK)
 
     ##  Calculo da diagonal abaixo da diagonal principal.  ##
     for i in range (1, n):
-        diagA[i] = -1 * pow((1/h),2) * calculaIntegral(x[i-1], x[i], funcaoK)
+        diagA[i] = -1 * pow((1/h),2) * calculaIntegral(x[i], x[i+1], funcaoK)
 
     ##  Imprime as três diagonais criadas acima.  ##
     print("a")
@@ -153,7 +154,7 @@ def calculaMEF(n, L, funcaoX, funcaoK, funcaoQ):
     print(vetorAlfa)
 
     ##  Finalmente, calculo do valor aproximado.  ##
-    vetoruExato      = np.zeros(n+2)
+    #vetoruExato      = np.zeros(n+2)
     vetoruAproximado = np.zeros(n+2)
 
     for j in range(0,n+2):
@@ -164,7 +165,7 @@ def calculaMEF(n, L, funcaoX, funcaoK, funcaoQ):
             elif (x[j] <= x[i+2] and x[j] >= x[i+1]):
                 rAproximado = rAproximado + vetorAlfa[i] * (x[i+2] - x[j]) / h
         vetoruAproximado[j] = rAproximado
-        vetoruExato[j] =  pow(x[j],2) * pow((1 - x[j]),2)
+        #vetoruExato[j] =  pow(x[j],2) * pow((1 - x[j]),2)
 
     ##  Retorna vetor com os valores aproximados, nos pontos x_i.  ##
     return vetoruAproximado
