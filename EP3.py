@@ -13,18 +13,31 @@ def main():
     ##  Uso do MEF para resolucao do primeiro problema de validacao disponibilizado.  ##
     print("\nItem 4.2 - Primeira validacao")
 
+    ##  Vetor com os n valores pedidos.  ##
+    n = [7,15,31,63]
+
     ##  Dados do primeiro problema de validacao.  ##
-    n = 31
     L = 1
     funcaoX = "12*x*(1-x)-2"
     k = "1"
     q = "0"
 
-    ##  Chama as funcoes para calcular valores esperados e exatos, assim como o erro maximo.  ##
-    vetoruAproximado = calculaMEF(n , L , funcaoX , k , q)
-    vetoruExato = geraVetorValidacaoProblemaUm(n)
-    print(calculaErroMaximo(n, vetoruAproximado, vetoruExato))
+    ##  Vetor que guarda os quatro valores de erro maximo, para cada n.  ##
+    vetorErroMaximo = np.zeros(4)
 
+    for i in range(0,4):
+    ##  Chama as funcoes para calcular valores esperados e exatos, assim como o erro maximo.  ##
+        print("\nPara n = ",n[i],"...")
+        vetoruAproximado = calculaMEF(n[i] , L , funcaoX , k , q)
+        vetoruExato = geraVetorValidacaoProblemaUm(n[i])
+        vetorErroMaximo[i] = calculaErroMaximo(n[i], vetoruAproximado, vetoruExato)
+        print("     Valores aproximados:\n", vetoruAproximado)
+        print("     Valores exatos:\n", vetoruExato)
+        print("     Erro maximo obtido: ", vetorErroMaximo[i])
+
+    print("\n     Em suma, para o primeiro problema de validacao, foram obtidos\n     os seguintes erros maximos, reapresentados aqui juntos:")
+    for i in range(0,4):
+        print("     Erro maximo ( n =",n[i],"): ",vetorErroMaximo[i])
 
     #print(calculaMEF(n, L, funcao, "1", 0))
 
@@ -42,13 +55,13 @@ def calculaErroMaximo(n, vetoruAproximado, vetoruExato):
 def calculaMEF(n, L, funcaoX, funcaoK, funcaoQ):
     ##  Cálculo do intervalo entre pontos.  ##
     h = L/(n+1)
-    print("\nIntervalo entre pontos: "+str(h))
+    print("     Intervalo entre pontos: "+str(h))
 
     ##  Criacao do vetor com valores x_i.  ##
     x = np.zeros(n+2)
     for i in range(0, n+2):
         x[i] = i*h
-    print("Valores do vetor x:")
+    print("     Valores do vetor x:")
     print(x)
 
     ##  Criacao da matriz A (tridiagonal) da equacao (8), representada em três vetores.  ##
@@ -69,11 +82,11 @@ def calculaMEF(n, L, funcaoX, funcaoK, funcaoQ):
         diagA[i] = -1 * pow((1/h),2) * calculaIntegral(x[i], x[i+1], funcaoK)
 
     ##  Imprime as três diagonais criadas acima.  ##
-    print("a")
+    print("     Vetor a da matriz A:")
     print(diagA)
-    print("b")
+    print("     Vetor b da matriz A:")
     print(diagB)
-    print("c")
+    print("     Vetor c da matriz A:")
     print(diagC)
 
     ##  Calculo do vetor b, da funcao chapeu da equacao (8).  ##
@@ -82,14 +95,14 @@ def calculaMEF(n, L, funcaoX, funcaoK, funcaoQ):
         b[i] = calculaIntegral(x[i],x[i+1],"("+funcaoX+")*(x-"+str(x[i])+")/"+str(h)) + calculaIntegral(x[i+1],x[i+2],"("+funcaoX+")*("+str(x[i+2])+"-x)/"+str(h))
 
     ##  Imprime o vetor b, calculado acima.  ##
-    print("Vetor b: ")
+    print("     Vetor b do sistema: ")
     print(b)
 
     ##  Resolve sistema matricial para achar o vetor alfa.  ##
     vetorAlfa = resolveTridiagonal(n,diagA,diagB,diagC,b)
 
     ##  Imprime o vetor alfa calculado acima.  ##
-    print("vetor alfa resolvido: ")
+    print("     Vetor alfa, resolvido:")
     print(vetorAlfa)
 
     ##  Finalmente, calculo do valor aproximado.  ##
