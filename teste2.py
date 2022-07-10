@@ -6,9 +6,9 @@ def main():
     #L = int(input("Digite o L para as analises: ")) ## L = 1 para comecar
     n = 63
     L = 1
-    funcao = "np.exp(x)+1"
-
-    k = "np.exp(x)"
+    funcao = "12*x*(1-x)-2"
+    
+    k = "1"
     q = "0"
 
     ##  Cálculo do intervalo entre pontos.  ##
@@ -69,7 +69,7 @@ def main():
             elif (x[j] <= x[i+2] and x[j] >= x[i+1]):
                 rAproximado = rAproximado + vetorAlfa[i] * (x[i+2] - x[j]) / h
         vetoruAproximado[j] = rAproximado
-        vetoruExato[j] =  (x[j]-1) * (np.exp(-x[j])-1)
+        vetoruExato[j] =  pow(x[j],2) * pow((1 - x[j]),2)
 
     print("Vetor com valores aproximados:\n", vetoruAproximado)
     print("Vetor com valores exatos:\n", vetoruExato)
