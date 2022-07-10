@@ -19,7 +19,7 @@ def main():
     q = "0"
 
     print(calculaMEF(31 , 1 , "12*x*(1-x)-2" , "1" , 0))
-
+    print(geraVetorValidacaoProblemaUm(n))
 
 
     ##  Cálculo do intervalo entre pontos.  ##
@@ -171,7 +171,19 @@ def calculaMEF(n, L, funcaoX, funcaoK, funcaoQ):
     return vetoruAproximado
 
 ##  Funcao que gera o vetor de validacao do item 4.2.  ##
-def geraVetorValidacao(n,x):
+def geraVetorValidacaoProblemaUm(n):
+    ##  Criacao do vetor com valores x_i.  ##
+    x = np.zeros(n+2)
+
+    ##  Cálculo do intervalo entre pontos.  ##
+    h = 1/(n+1)
+
+    for i in range(0, n+2):
+        x[i] = i*h
+
+    print("Valores do vetor x:")
+    print(x)
+
     valoresExatos = np.zeros(n+2)
 
     for i in range (1,n+2):
