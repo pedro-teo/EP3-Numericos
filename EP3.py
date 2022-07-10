@@ -86,6 +86,9 @@ def main():
     print("ALOO")
     print(calculaMEF(n, L, funcao, '1', 0))
 
+    print(calculaMEF(n, L,"(np.exp(x)+1)", "(np.exp(x))", 0))
+    print(geraVetorValidacaoProblemaDois(n,x))
+
     #print(vetorAlfa - geraVetorValidacao(n,x))
 
 def calculaMEF(n, L, funcaoX, funcaoK, funcaoQ):
@@ -107,15 +110,15 @@ def calculaMEF(n, L, funcaoX, funcaoK, funcaoQ):
 
     ##  Calculo da diagonal principal.  ##
     for i in range (0, n):
-        diagB[i] = pow((1/h),2) * calculaIntegral(x[i], x[i+1], funcaoK) + pow((-1/h),2)*calculaIntegral(x[i+1], x[i+2], funcaoK)
+        diagB[i] = pow((1/h),2) * calculaIntegral(x[i], x[i+1], funcaoK) + pow((-1/h),2) * calculaIntegral(x[i+1], x[i+2], funcaoK)
 
     ##  Calculo da diagonal acima da diagonal principal.  ##
     for i in range (0, n-1):
-        diagC[i] = -1*pow(1/h,2) * calculaIntegral(x[i], x[i+1], funcaoK)
+        diagC[i] = -1 * pow((1/h),2) * calculaIntegral(x[i], x[i+1], funcaoK)
 
     ##  Calculo da diagonal abaixo da diagonal principal.  ##
     for i in range (1, n):
-        diagA[i] = -1*pow(1/h,2) * calculaIntegral(x[i-1], x[i], funcaoK)
+        diagA[i] = -1 * pow((1/h),2) * calculaIntegral(x[i-1], x[i], funcaoK)
 
     ##  Imprime as três diagonais criadas acima.  ##
     print("a")
@@ -167,10 +170,10 @@ def geraVetorValidacao(n,x):
     return valoresExatos
 
 def geraVetorValidacaoProblemaDois(n,x):
-    valoresExatos = np.zeros(n)
+    valoresExatos = np.zeros(n+2)
     
-    for i in range (0,n):
-        valoresExatos[i] = pow(x[i],2) + pow(1 - x[i],2)
+    for i in range (0,n+2):
+        valoresExatos[i] = (x[i] - 1) * (np.exp(-1 * x[i]) - 1)
     return valoresExatos
 
 ##  Funcao que calcula integral simples em dx, com n = 2.        ##
