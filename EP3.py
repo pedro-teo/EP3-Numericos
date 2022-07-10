@@ -24,9 +24,6 @@ def main():
     if(menuChoice==1):
         print("\nItem 4.2 - Primeira validacao")
 
-        ##  Vetor que guarda os quatro valores de erro maximo, para cada n.  ##
-        vetorErroMaximo = np.zeros(4)
-
         ##  Dados do primeiro problema de validacao.  ##
         L = 1
         funcaoX = "12*x*(1-x)-2"
@@ -51,8 +48,40 @@ def main():
         print("     Valores exatos:\n", vetoruExatoNQuinze)
         print("     Erro maximo obtido: ", vetorErroMaximoNQuinze)
 
+        ##  Calculos para n = 31.  ##
+        print("\nPara n = 31: ")
+        vetoruAproximadoNTrinta = calculaMEF(31 , L , funcaoX , funcaoK , funcaoQ)
+        vetoruExatoNTrinta = geraVetorValidacaoProblemaUm(31)
+        vetorErroMaximoNTrinta = calculaErroMaximo(31, vetoruAproximadoNTrinta, vetoruExatoNTrinta)
+        print("     Valores aproximados:\n", vetoruAproximadoNTrinta)
+        print("     Valores exatos:\n", vetoruExatoNTrinta)
+        print("     Erro maximo obtido: ", vetorErroMaximoNTrinta)
 
+        ##  Calculos para n = 63.  ##
+        print("\nPara n = 63: ")
+        vetoruAproximadoNSessenta = calculaMEF(63 , L , funcaoX , funcaoK , funcaoQ)
+        vetoruExatoNSessenta = geraVetorValidacaoProblemaUm(63)
+        vetorErroMaximoNSessenta = calculaErroMaximo(63, vetoruAproximadoNSessenta, vetoruExatoNSessenta)
+        print("     Valores aproximados:\n", vetoruAproximadoNSessenta)
+        print("     Valores exatos:\n", vetoruExatoNSessenta)
+        print("     Erro maximo obtido: ", vetorErroMaximoNSessenta)
+
+        print("\n     Em suma, para o primeiro problema de validacao, foram obtidos\n     os seguintes erros maximos, reapresentados aqui juntos:\n")
+        print("     Erro maximo  (n=7): ",vetorErroMaximoNSete)
+        print("     Erro maximo (n=15): ",vetorErroMaximoNQuinze)
+        print("     Erro maximo (n=31): ",vetorErroMaximoNTrinta)
+        print("     Erro maximo (n=63): ",vetorErroMaximoNSessenta)
+
+
+    ##  Uso do MEF para resolucao do segundo problema de validacao disponibilizado.  ##
     elif(menuChoice==2):
+        print("\nItem 4.2 - Segunda validacao")
+
+        ##  Dados do segundo problema de validacao.  ##
+        L = 1
+        funcaoX = "np.exp(x)+1"
+        k = "np.exp(x)"
+        q = "0"
         print(1)
 
     #for i in range(0,4):
@@ -92,19 +121,6 @@ def main():
 
     ########################################################################################
 
-    ##  Uso do MEF para resolucao do segundo problema de validacao disponibilizado.  ##
-    print("\nItem 4.2 - Segunda validacao")
-
-    ##  Dados do segundo problema de validacao.  ##
-    L = 1
-    funcaoX = "np.exp(x)+1"
-    k = "np.exp(x)"
-    q = "0"
-
-    #print(calculaMEF(n, L, funcao, "1", 0))
-
-    #print("resultado do PDF adicional:\n", calculaMEF(n, L,"np.exp(x)+1", "np.exp(x)", 0))
-    #print("resutado exato:\n", geraVetorValidacaoProblemaDois(n,x))
 
 def calculaErroMaximo(n, vetoruAproximado, vetoruExato):
     erroMaximo = 0
