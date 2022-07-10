@@ -84,7 +84,7 @@ def main():
     print("Vetor com valores exatos:\n", vetoruExato)
 
     print("ALOO")
-    print(calculaMEF(n, L, funcao, '1', 0))
+    print(calculaMEF(n, L, funcao, "1", 0))
 
     print("resultado do PDF adicional:\n", calculaMEF(n, L,"np.exp(x)+1", "np.exp(x)", 0))
 
