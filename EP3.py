@@ -6,6 +6,7 @@
 ###     Pedro H. Teodoro Silva - NUSP 11805314                           ###
 
 ##  Importacao da biblioteca numpy, com abreviacao np.  ##
+from telnetlib import X3PAD
 import numpy as np
 ##  Importacao da biblioteca 
 import matplotlib.pyplot as plt
@@ -72,7 +73,32 @@ def main():
         print("     Erro maximo (n=15): ",vetorErroMaximoNQuinze)
         print("     Erro maximo (n=31): ",vetorErroMaximoNTrinta)
         print("     Erro maximo (n=63): ",vetorErroMaximoNSessenta)
+        print("\nO sistema agora abrira um grafico, contendo as curvas obtidas.")
+        print("Caso deseje executar outra opcao, feche o grafico primeiro.\n")
 
+        ##  Plot do grafico das 4 series obtidas anteriormente neste exercicio.  ##
+        x1 = np.linspace(0.0, 1.0, num=9)
+        x2 = np.linspace(0.0, 1.0, num=17)
+        x3 = np.linspace(0.0, 1.0, num=33)
+        x4 = np.linspace(0.0, 1.0, num=65)
+
+        fig, ax = plt.subplots(2,2)
+        ax[0,0].plot(x1, vetoruAproximadoNSete, label='Valor aproximado', marker = '.')
+        ax[0,0].plot(x1, vetoruExatoNSete, label='Valor exato', marker = '.')
+        ax[0,1].plot(x2, vetoruAproximadoNQuinze, label='Valor aproximado', marker = '.')
+        ax[0,1].plot(x2, vetoruExatoNQuinze, label='Valor exato', marker = '.')
+        ax[1,0].plot(x3, vetoruAproximadoNTrinta, label='Valor aproximado', marker = '.')
+        ax[1,0].plot(x3, vetoruExatoNTrinta, label='Valor exato', marker = '.')
+        ax[1,1].plot(x4, vetoruAproximadoNSessenta, label='Valor aproximado', marker = '.')
+        ax[1,1].plot(x4, vetoruExatoNSessenta, label='Valor exato', marker = '.')
+        ax[0,0].set_title('n = 7')
+        ax[0,1].set_title('n = 15')
+        ax[1,0].set_title('n = 31')
+        ax[1,1].set_title('n = 63')
+
+        ax[1,1].legend()
+        fig.tight_layout()
+        plt.show()
 
     ##  Uso do MEF para resolucao do segundo problema de validacao disponibilizado.  ##
     elif(menuChoice==2):
@@ -81,46 +107,80 @@ def main():
         ##  Dados do segundo problema de validacao.  ##
         L = 1
         funcaoX = "np.exp(x)+1"
-        k = "np.exp(x)"
-        q = "0"
-        print(1)
+        funcaoK = "np.exp(x)"
+        funcaoQ = "0"
+        
+        ##  Calculos para n = 7.  ##
+        print("\nPara n = 7: ")
+        vetoruAproximadoNSete = calculaMEF(7 , L , funcaoX , funcaoK , funcaoQ)
+        vetoruExatoNSete = geraVetorValidacaoProblemaDois(7)
+        vetorErroMaximoNSete = calculaErroMaximo(7, vetoruAproximadoNSete, vetoruExatoNSete)
+        print("     Valores aproximados:\n", vetoruAproximadoNSete)
+        print("     Valores exatos:\n", vetoruExatoNSete)
+        print("     Erro maximo obtido: ", vetorErroMaximoNSete)
 
-    #for i in range(0,4):
-    ##  Chama as funcoes para calcular valores esperados e exatos, assim como o erro maximo.  ##
-    #    print("\nPara n = ",n[i],"...")
-    #    vetoruAproximado = calculaMEF(n[i] , L , funcaoX , k , q)
-    #    vetoruExato = geraVetorValidacaoProblemaUm(n[i])
-    #    vetorErroMaximo[i] = calculaErroMaximo(n[i], vetoruAproximado, vetoruExato)
-    #    print("     Valores aproximados:\n", vetoruAproximado)
-    #    print("     Valores exatos:\n", vetoruExato)
-    #    print("     Erro maximo obtido: ", vetorErroMaximo[i])
-    #
-    #print("\n     Em suma, para o primeiro problema de validacao, foram obtidos\n     os seguintes erros maximos, reapresentados aqui juntos:\n")
-    #for i in range(0,4):
-    #    print("     Erro maximo ( n =",n[i],"): ",vetorErroMaximo[i])
+        ##  Calculos para n = 15.  ##
+        print("\nPara n = 15: ")
+        vetoruAproximadoNQuinze = calculaMEF(15 , L , funcaoX , funcaoK , funcaoQ)
+        vetoruExatoNQuinze = geraVetorValidacaoProblemaDois(15)
+        vetorErroMaximoNQuinze = calculaErroMaximo(15, vetoruAproximadoNQuinze, vetoruExatoNQuinze)
+        print("     Valores aproximados:\n", vetoruAproximadoNQuinze)
+        print("     Valores exatos:\n", vetoruExatoNQuinze)
+        print("     Erro maximo obtido: ", vetorErroMaximoNQuinze)
 
-    #h = L/(63+1)
-    #x = np.zeros(63+2)
-    #for i in range(0, 63+2):
-    #    x[i] = i*h
+        ##  Calculos para n = 31.  ##
+        print("\nPara n = 31: ")
+        vetoruAproximadoNTrinta = calculaMEF(31 , L , funcaoX , funcaoK , funcaoQ)
+        vetoruExatoNTrinta = geraVetorValidacaoProblemaDois(31)
+        vetorErroMaximoNTrinta = calculaErroMaximo(31, vetoruAproximadoNTrinta, vetoruExatoNTrinta)
+        print("     Valores aproximados:\n", vetoruAproximadoNTrinta)
+        print("     Valores exatos:\n", vetoruExatoNTrinta)
+        print("     Erro maximo obtido: ", vetorErroMaximoNTrinta)
+
+        ##  Calculos para n = 63.  ##
+        print("\nPara n = 63: ")
+        vetoruAproximadoNSessenta = calculaMEF(63 , L , funcaoX , funcaoK , funcaoQ)
+        vetoruExatoNSessenta = geraVetorValidacaoProblemaDois(63)
+        vetorErroMaximoNSessenta = calculaErroMaximo(63, vetoruAproximadoNSessenta, vetoruExatoNSessenta)
+        print("     Valores aproximados:\n", vetoruAproximadoNSessenta)
+        print("     Valores exatos:\n", vetoruExatoNSessenta)
+        print("     Erro maximo obtido: ", vetorErroMaximoNSessenta)
+
+        ##  Imprime os erros maximos obtidos de cada n, para fins de estudo com o h^2.  ##
+        print("\n     Em suma, para o segundo problema de validacao, foram obtidos\n     os seguintes erros maximos, reapresentados aqui juntos:\n")
+        print("     Erro maximo  (n=7): ",vetorErroMaximoNSete)
+        print("     Erro maximo (n=15): ",vetorErroMaximoNQuinze)
+        print("     Erro maximo (n=31): ",vetorErroMaximoNTrinta)
+        print("     Erro maximo (n=63): ",vetorErroMaximoNSessenta)
+        print("\nO sistema agora abrira um grafico, contendo as curvas obtidas.")
+        print("Caso deseje executar outra opcao, feche o grafico primeiro.\n")
+
+        ##  Plot do grafico das 4 series obtidas anteriormente neste exercicio.  ##
+        x1 = np.linspace(0.0, 1.0, num=9)
+        x2 = np.linspace(0.0, 1.0, num=17)
+        x3 = np.linspace(0.0, 1.0, num=33)
+        x4 = np.linspace(0.0, 1.0, num=65)
+
+        fig, ax = plt.subplots(2,2)
+        ax[0,0].plot(x1, vetoruAproximadoNSete, label='Valor aproximado', marker = '.')
+        ax[0,0].plot(x1, vetoruExatoNSete, label='Valor exato', marker = '.')
+        ax[0,1].plot(x2, vetoruAproximadoNQuinze, label='Valor aproximado', marker = '.')
+        ax[0,1].plot(x2, vetoruExatoNQuinze, label='Valor exato', marker = '.')
+        ax[1,0].plot(x3, vetoruAproximadoNTrinta, label='Valor aproximado', marker = '.')
+        ax[1,0].plot(x3, vetoruExatoNTrinta, label='Valor exato', marker = '.')
+        ax[1,1].plot(x4, vetoruAproximadoNSessenta, label='Valor aproximado', marker = '.')
+        ax[1,1].plot(x4, vetoruExatoNSessenta, label='Valor exato', marker = '.')
+        ax[0,0].set_title('n = 7')
+        ax[0,1].set_title('n = 15')
+        ax[1,0].set_title('n = 31')
+        ax[1,1].set_title('n = 63')
+
+        ax[1,1].legend()
+        fig.tight_layout()
+        plt.show()
     
-    #fig, ax = plt.subplots(2,2)
-    #ax[1,1].plot(x, vetoruAproximado, label='Valor aproximado', marker = '.')
-    #ax[1,1].plot(x, vetoruExato, label='Valor exato', marker = '.')
-    #ax.set_title('Valores aproximados e exatos da primeira validacao')
-    #ax.set_xlabel('Valor de x')
-    #ax.set_ylabel('Valores obtidos')
-
-    #fig, ax2 = plt.subplots()
-    #line1, = ax2.plot(x, vetoruAproximado, label='Valor aproximado', marker = '.')
-    #line2, = ax2.plot(x, vetoruExato, label='Valor exato', marker = '.')
-    
-
-
-    #ax[1,1].legend()
-    #plt.show()
-
-    ########################################################################################
+    elif(menuChoice==3):
+        print(2)
 
 
 def calculaErroMaximo(n, vetoruAproximado, vetoruExato):
@@ -220,6 +280,15 @@ def geraVetorValidacaoProblemaUm(n):
 
 ##  Funcao que gera o vetor de validacao do complemento do item 4.2.  ##
 def geraVetorValidacaoProblemaDois(n):
+    ##  Criacao do vetor com valores x_i.  ##
+    x = np.zeros(n+2)
+
+    ##  Cálculo do intervalo entre pontos.  ##
+    h = 1/(n+1)
+
+    for i in range(0, n+2):
+        x[i] = i*h
+    
     valoresExatos = np.zeros(n+2)
     
     for i in range (0,n+2):
