@@ -172,10 +172,10 @@ def calculaMEF(n, L, funcaoX, funcaoK, funcaoQ):
 
 ##  Funcao que gera o vetor de validacao do item 4.2.  ##
 def geraVetorValidacao(n,x):
-    valoresExatos = np.zeros(n)
+    valoresExatos = np.zeros(n+2)
 
-    for i in range (1,n+1):
-        valoresExatos[i-1] = pow(x[i],2) * pow(1 - x[i],2)
+    for i in range (1,n+2):
+        valoresExatos[i] = pow(x[i],2) * pow(1 - x[i],2)
     return valoresExatos
 
 def geraVetorValidacaoProblemaDois(n,x):
