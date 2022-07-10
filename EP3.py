@@ -66,6 +66,7 @@ def main():
         print("     Valores exatos:\n", vetoruExatoNSessenta)
         print("     Erro maximo obtido: ", vetorErroMaximoNSessenta)
 
+        ##  Imprime os erros maximos obtidos de cada n, para fins de estudo com o h^2.  ##
         print("\n     Em suma, para o primeiro problema de validacao, foram obtidos\n     os seguintes erros maximos, reapresentados aqui juntos:\n")
         print("     Erro maximo  (n=7): ",vetorErroMaximoNSete)
         print("     Erro maximo (n=15): ",vetorErroMaximoNQuinze)
