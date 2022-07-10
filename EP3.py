@@ -83,6 +83,15 @@ def main():
     print("Vetor com valores aproximados:\n", vetoruAproximado)
     print("Vetor com valores exatos:\n", vetoruExato)
 
+    erro = 0
+    for i in range (0,n):
+        diferencaModulo = abs(vetoruAproximado[i] - vetoruExato[i])
+        print(diferencaModulo)
+        if(diferencaModulo > erro):
+            erro = diferencaModulo
+    
+    print("Erro: ", erro)
+
     print("ALOO")
     print(calculaMEF(n, L, funcao, "1", 0))
 

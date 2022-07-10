@@ -74,6 +74,15 @@ def main():
     print("Vetor com valores aproximados:\n", vetoruAproximado)
     print("Vetor com valores exatos:\n", vetoruExato)
 
+    erro = 0
+    for i in range (0,n):
+        diferencaModulo = abs(vetoruAproximado[i] - vetoruExato[i])
+        print(diferencaModulo)
+        if(diferencaModulo > erro):
+            erro = diferencaModulo
+    
+    print("Erro: ", erro)
+
 def calculaIntegral(a,b,funcao):
     ## Cria matriz com valores de pesos e nos para n = 2
     n2 = np.zeros((2,2))
