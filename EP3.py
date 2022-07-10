@@ -120,9 +120,6 @@ def geraVetorValidacaoProblemaUm(n):
     for i in range(0, n+2):
         x[i] = i*h
 
-    print("Valores do vetor x:")
-    print(x)
-
     valoresExatos = np.zeros(n+2)
 
     for i in range (1,n+2):
