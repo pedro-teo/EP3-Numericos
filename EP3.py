@@ -76,35 +76,11 @@ def main():
                 rAproximado = rAproximado + vetorAlfa[i] * (x[j] - x[i]) / h
             elif (x[j] <= x[i+2] and x[j] >= x[i+1]):
                 rAproximado = rAproximado + vetorAlfa[i] * (x[i+2] - x[j]) / h
-
-        #print("Valor aproximado: ")
-        #print(rAproximado)
         vetoruAproximado[j] = rAproximado
-        # Valor exato
-        #print("Valor exato: ")
         vetoruExato[j] =  pow(x[j],2) * pow((1 - x[j]),2)
 
     print("Vetor com valores aproximados:\n", vetoruAproximado)
-    print("Vetor com valores exatos: \n", vetoruExato)
-
-
-    ##### vDesejado eh um numero qualquer q eu desejo calcular, q eu escolhi 0.3 aqui
-    #vDesejado = 0.3
-    #rAproximado = 0
-    #for i in range(0, n):
-    #    if (vDesejado <= x[i+1] and vDesejado >= x[i]):
-    #        rAproximado = rAproximado + vetorAlfa[i] * (vDesejado - x[i]) / h
-    #    elif (vDesejado <= x[i+2] and vDesejado >= x[i+1]):
-    #        rAproximado = rAproximado + vetorAlfa[i] * (x[i+2] - vDesejado) / h
-
-    #print("Valor aproximado: ")
-    #print(rAproximado)
-    #print("Valor exato: ")
-    #print( pow(vDesejado,2) * pow((1 - vDesejado),2))
-
-    #print("Para u = 1, valor esperado: "+str((0.5)^2+(0.5)^2))
-    #print(funcaoTeste(5,0,1,x))
-    print(geraVetorValidacao(n,x))
+    print("Vetor com valores exatos:\n", vetoruExato)
 
     print(vetorAlfa - geraVetorValidacao(n,x))
 
