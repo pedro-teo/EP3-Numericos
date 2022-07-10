@@ -46,10 +46,10 @@ def main():
         print("\nPara n = 15: ")
         vetoruAproximadoNQuinze = calculaMEF(15 , L , funcaoX , funcaoK , funcaoQ)
         vetoruExatoNQuinze = geraVetorValidacaoProblemaUm(15)
-        vetorErroMaximoNQuinze = calculaErroMaximo(15, vetoruAproximadoNQuinze, vetoruExatoNSete)
-        print("     Valores aproximados:\n", vetoruAproximadoNSete)
-        print("     Valores exatos:\n", vetoruExatoNSete)
-        print("     Erro maximo obtido: ", vetorErroMaximoNSete)
+        vetorErroMaximoNQuinze = calculaErroMaximo(15, vetoruAproximadoNQuinze, vetoruExatoNQuinze)
+        print("     Valores aproximados:\n", vetoruAproximadoNQuinze)
+        print("     Valores exatos:\n", vetoruExatoNQuinze)
+        print("     Erro maximo obtido: ", vetorErroMaximoNQuinze)
 
 
     elif(menuChoice==2):
