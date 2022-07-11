@@ -180,26 +180,89 @@ def main():
     
     ##  Resolucao do item 4.3, de equilibrio com forcantes de calor.  ##
     elif(menuChoice==3):
-        ##  Dados do p######  ##
+        ##  Primeiro caso considerado:                             ##
+        ##  * Utilizou-se a funcao de Q+0 descrita no PDF, com     ## 
+        ##    Q+0 = 30W / (20*20*2 mm3).                           ##
+        ##  * Para Q-0, considerou-se que a perda de calor ocorre  ##
+        ##    de forma semelhante, com Q-0 = 20W / (20*20*2 mm3)   ##
+        ##    (ou seja, um resfriamento menor que aquecimento).    ##
         n = 63
         L = 1
-        funcaoQ = "3*np.exp(-pow((x-0.5),2)/pow(0.08,2)) - 0.5"
+        funcaoQMais  = "30/(8*pow(10,-7))"
+        funcaoQMenos = "20/(8*pow(10,-7))"
         funcaoK = "3.6"
+        funcaoQ = funcaoQMais+"-("+funcaoQMenos+")"
         funcaoX = funcaoQ
+        resultadoUm = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
 
-        np.exp(n)
-        pow(2,2)
-        resultado = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
+        ##  Segundo caso considerado:                              ##
+        ##  * Utilizou-se a funcao de Q+(x) descrita no PDF, com   ## 
+        ##    Q+0 = 30W / (20*20*2 mm3) e Sigma = 0.08.            ##
+        ##  * Considerou-se Q- = 0, para analisar o efeito da      ##
+        ##    variacao de Sigma na curva obtida.                   ##
+        n = 63
+        L = 1
+        funcaoQMais  = "(30/(8*pow(10,-7))) * np.exp(-pow((x-0.5),2)/pow(0.08,2))"
+        funcaoQMenos = "0"
+        funcaoK = "3.6"
+        funcaoQ = funcaoQMais+"-("+funcaoQMenos+")"
+        funcaoX = funcaoQ
+        resultadoDois = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
 
-        ##  Plot do grafico das 4 series obtidas anteriormente neste exercicio.  ##
+        ##  Terceiro caso considerado:                             ##
+        ##  * Utilizou-se a funcao de Q+(x) descrita no PDF, com   ## 
+        ##    Q+0 = 30W / (20*20*2 mm3) e Sigma = 0.015.            ##
+        ##  * Considerou-se Q- = 0, para analisar o efeito da      ##
+        ##    variacao de Sigma na curva obtida.                   ##
+        n = 63
+        L = 1
+        funcaoQMais  = "(30/(8*pow(10,-7))) * np.exp(-pow((x-0.5),2)/pow(0.015,2))"
+        funcaoQMenos = "0"
+        funcaoK = "3.6"
+        funcaoQ = funcaoQMais+"-("+funcaoQMenos+")"
+        funcaoX = funcaoQ
+        resultadoTres = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
+        
+        ##  Quarto caso considerado:                               ##
+        ##  * Utilizou-se a funcao de Q+(x) descrita no PDF, com   ## 
+        ##    Q+0 = 30W / (20*20*2 mm3) e Sigma = 0.08.            ##
+        ##  * Utilizou-se a funcao de Q-(x), descrita no PDF, com  ##
+        ##    Q-0 = 30W / (20*20*2 mm3)                ##
+        ##    (ou seja, um resfriamento menor que aquecimento).    ##
+        n = 63
+        L = 1
+        funcaoQMais  = "(20/(8*pow(10,-7)))"
+        funcaoQMenos = "(20/(8*pow(10,-7))) * ( np.exp(-pow((x/0.008),2)) + np.exp(-pow((x-1)/0.008,2)) )"
+        funcaoK = "3.6"
+        funcaoQ = funcaoQMais+"-("+funcaoQMenos+")"
+        funcaoX = funcaoQ
+        resultadoQuatro = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
+
+        ## TESTE PRA DEBUGAR CURVA
+        n = 63
+        L = 1
+        funcaoQMais  = "0"
+        funcaoQMenos = "(20/(8*pow(10,-3))) * ( np.exp(-pow((x/0.1),2)) + np.exp(-pow((x-1)/0.1,2)) )"
+        funcaoK = "3.6"
+        funcaoQ = funcaoQMais+"-("+funcaoQMenos+")"
+        funcaoX = funcaoQ
+        resultadoCinco = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
+
+        
+        #for i in range (0,n+2):
+        #    vetor[0] = 
+
+
         x4 = np.linspace(0.0, 1.0, num=65)
-
         fig, ax = plt.subplots()
-        line1, = ax.plot(x4, resultado, label='Valor aproximado', marker = '.')
-        #line2, = ax.plot(x4, vetoruExato, label='Valor exato', marker = '.')
-        ax.set_title('Valores ex3')
-        ax.set_xlabel('Valor de x')
-        ax.set_ylabel('Valores obtidos')
+        #line1, = ax.plot(x4, resultadoUm, label='Caso 1', marker = '.')
+        #line2, = ax.plot(x4, resultadoDois, label='Caso 2', marker = '.')
+        #line3, = ax.plot(x4, resultadoTres, label='Caso 3', marker = '.')
+        #line4, = ax.plot(x4, resultadoQuatro, label='Caso 4', marker='.')
+        line5, = ax.plot(x4, resultadoCinco, label='Caso 5', marker='.')
+        ax.set_title('Análise do efeito da variação de Q(x)')
+        ax.set_xlabel('Posicao')
+        ax.set_ylabel('Valor obtido')
 
         #fig, ax2 = plt.subplots()
         #line1, = ax2.plot(x, vetoruAproximado, label='Valor aproximado', marker = '.')
@@ -210,16 +273,29 @@ def main():
 
     ##  Resolucao do item 4.4, de equilibrio com variacao de material.  ##
     elif(menuChoice==4):
-        ##  Dados do p######  ##
+        ##  Note:                                                  ##
+        ##  * Para comportar a variacao do material, refletida     ##
+        ##    no uso de ks e ka, foi confeccionada uma segunda     ##
+        ##    funcao de calculo de MEF, com entradas extras:       ##
+        ##    ks, ka e d.                                          ##
+        ##  * Utilizou-se a funcao de Q+(x) descrita no PDF, com   ## 
+        ##    Q+0 = 30W / (20*20*2 mm3)                            ##
+        ##  * Utilizou-se a funcao de Q-(x) descrita no PDF, com   ## 
+        ##    Q+0 = 30W / (20*20*2 mm3)                            ##
+
+        ##  Dados do problema.  ##
         n = 63
         L = 1
-        funcaoQ = "3*np.exp(-pow((x-0.5),2)/pow(0.08,2)) - 0.5"
-        funcaoK = "3.6"
+        d = 0.3
+        funcaoQMais  = "(30/(8*pow(10,-7))) * np.exp(-pow((x-0.5),2)/pow(0.08,2))"
+        funcaoQMenos = "(20/(8*pow(10,-7))) * ( np.exp(-pow((x/0.08),2)) + np.exp(-pow((x-1)/0.08,2)) )"
+        funcaoKa = "60"
+        funcaoKs = "3.6"
+        funcaoQ = funcaoQMais+"-("+funcaoQMenos+")"
+        print(funcaoQ)
         funcaoX = funcaoQ
 
-        np.exp(n)
-        pow(2,2)
-        resultado = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
+        resultado = calculaMEFteste(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ)
 
         ##  Plot do grafico das 4 series obtidas anteriormente neste exercicio.  ##
         x4 = np.linspace(0.0, 1.0, num=65)
@@ -234,7 +310,28 @@ def main():
         plt.show()
 
     elif(menuChoice==5):
-        return 1
+        ##  Dados do problema.  ##
+        n = 63
+        L = 1
+        d = 0.3
+        funcaoQ = "(30/(8*pow(10,-7))) * np.exp(-pow((x-0.5),2)/pow(0.08,2))"
+        funcaoKa = "60"
+        funcaoKs = "3.6"
+        funcaoX = funcaoQ
+
+        resultado = calculaMEFteste(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ)
+
+        ##  Plot do grafico das 4 series obtidas anteriormente neste exercicio.  ##
+        x4 = np.linspace(0.0, 1.0, num=65)
+
+        fig, ax = plt.subplots()
+        line1, = ax.plot(x4, resultado, label='Valor aproximado', marker = '.')
+        ax.set_title('Valores ex3')
+        ax.set_xlabel('Valor de x')
+        ax.set_ylabel('Valores obtidos')
+
+        ax.legend()
+        plt.show()
 
     ##  Mensagem de erro, para opcao escolhida invalida.  ##
     else:
