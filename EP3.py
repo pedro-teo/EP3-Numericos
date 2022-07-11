@@ -17,7 +17,7 @@ def main():
     print("Veja as opcoes disponiveis... ")
     print("1. Secao 4.2 - Validacao")
     print("2. Secao 4.2 - Validacao complementar")
-    print("3. ")
+    print("3. Secao 4.3 - Q(x) constante")
     print("4. ")
     menuChoice = int(input("Digite o numero da opcao desejada para calculos: "))
 
@@ -179,7 +179,35 @@ def main():
         plt.show()
     
     elif(menuChoice==3):
-        print(2)
+        ##  Dados do primeiro problema de validacao.  ##
+        n = 63
+        L = 1
+        funcaoX = "np.exp(x)+1"
+        funcaoK = "0.5*x"
+        funcaoQ = "-2*x"
+
+        resultado = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
+
+        ##  Plot do grafico das 4 series obtidas anteriormente neste exercicio.  ##
+        x4 = np.linspace(0.0, 1.0, num=65)
+
+        fig, ax = plt.subplots()
+        line1, = ax.plot(x4, resultado, label='Valor aproximado', marker = '.')
+        #line2, = ax.plot(x4, vetoruExato, label='Valor exato', marker = '.')
+        ax.set_title('Valores ex3')
+        ax.set_xlabel('Valor de x')
+        ax.set_ylabel('Valores obtidos')
+
+        #fig, ax2 = plt.subplots()
+        #line1, = ax2.plot(x, vetoruAproximado, label='Valor aproximado', marker = '.')
+        #line2, = ax2.plot(x, vetoruExato, label='Valor exato', marker = '.')
+
+        ax.legend()
+        plt.show()
+
+        #ax[1,1].legend()
+        #fig.tight_layout()
+        #plt.show()
 
 
 def calculaErroMaximo(n, vetoruAproximado, vetoruExato):
