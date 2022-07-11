@@ -17,10 +17,11 @@ def main():
     print("1. Secao 4.2 - Validacao")
     print("2. Secao 4.2 - Validacao complementar")
     print("3. Secao 4.3 - Q(x) constante")
-    print("4. ")
+    print("4. Secao 4.3 - Q(x) com funcao em x")
+    print("5. Secao 4.4 - Equilibrio com variacao de material")
     menuChoice = int(input("Digite o numero da opcao desejada para calculos: "))
 
-    ##  Uso do MEF para resolucao do primeiro problema de validacao disponibilizado.  ##
+    ##  Resolucao do item 4.2, da primeira validacao disponibilizada.  ##
     if(menuChoice==1):
         print("\nItem 4.2 - Primeira validacao")
 
@@ -98,7 +99,7 @@ def main():
         fig.tight_layout()
         plt.show()
 
-    ##  Uso do MEF para resolucao do segundo problema de validacao disponibilizado.  ##
+    ##  Resolucao do item 4.2, da segunda validacao disponibilizada.  ##
     elif(menuChoice==2):
         print("\nItem 4.2 - Segunda validacao")
 
@@ -177,6 +178,7 @@ def main():
         fig.tight_layout()
         plt.show()
     
+    ##  Resolucao do item 4.3, de equilibrio com forcantes de calor.  ##
     elif(menuChoice==3):
         ##  Dados do p######  ##
         n = 63
@@ -206,19 +208,37 @@ def main():
         ax.legend()
         plt.show()
 
+    ##  Resolucao do item 4.4, de equilibrio com variacao de material.  ##
     elif(menuChoice==4):
         ##  Dados do p######  ##
         n = 63
         L = 1
-        funcaoX = "1"
+        funcaoQ = "3*np.exp(-pow((x-0.5),2)/pow(0.08,2)) - 0.5"
         funcaoK = "3.6"
-        funcaoQ = funcaoX
-        
+        funcaoX = funcaoQ
 
-        #ax[1,1].legend()
-        #fig.tight_layout()
-        #plt.show()
+        np.exp(n)
+        pow(2,2)
+        resultado = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
 
+        ##  Plot do grafico das 4 series obtidas anteriormente neste exercicio.  ##
+        x4 = np.linspace(0.0, 1.0, num=65)
+
+        fig, ax = plt.subplots()
+        line1, = ax.plot(x4, resultado, label='Valor aproximado', marker = '.')
+        ax.set_title('Valores ex3')
+        ax.set_xlabel('Valor de x')
+        ax.set_ylabel('Valores obtidos')
+
+        ax.legend()
+        plt.show()
+
+    elif(menuChoice==5):
+        return 1
+
+    ##  Mensagem de erro, para opcao escolhida invalida.  ##
+    else:
+        print("\nNenhuma opcao valida foi selecionada. Rode novamente o codigo!\n")
 
 def calculaErroMaximo(n, vetoruAproximado, vetoruExato):
     erroMaximo = 0
