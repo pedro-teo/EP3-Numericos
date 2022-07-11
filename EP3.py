@@ -6,7 +6,6 @@
 ###     Pedro H. Teodoro Silva - NUSP 11805314                           ###
 
 ##  Importacao da biblioteca numpy, com abreviacao np.  ##
-from telnetlib import X3PAD
 import numpy as np
 ##  Importacao da biblioteca 
 import matplotlib.pyplot as plt
@@ -179,13 +178,15 @@ def main():
         plt.show()
     
     elif(menuChoice==3):
-        ##  Dados do primeiro problema de validacao.  ##
+        ##  Dados do p######  ##
         n = 63
         L = 1
-        funcaoX = "np.exp(x)+1"
-        funcaoK = "0.5*x"
-        funcaoQ = "-2*x"
+        funcaoQ = "3*np.exp(-pow((x-0.5),2)/pow(0.08,2)) - 0.5"
+        funcaoK = "3.6"
+        funcaoX = funcaoQ
 
+        np.exp(n)
+        pow(2,2)
         resultado = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
 
         ##  Plot do grafico das 4 series obtidas anteriormente neste exercicio.  ##
@@ -204,6 +205,15 @@ def main():
 
         ax.legend()
         plt.show()
+
+    elif(menuChoice==4):
+        ##  Dados do p######  ##
+        n = 63
+        L = 1
+        funcaoX = "1"
+        funcaoK = "3.6"
+        funcaoQ = funcaoX
+        
 
         #ax[1,1].legend()
         #fig.tight_layout()
