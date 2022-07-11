@@ -190,7 +190,7 @@ def main():
         L = 1
         funcaoQMais  = "30/(8*pow(10,-7))"
         funcaoQMenos = "20/(8*pow(10,-7))"
-        funcaoK = "3.6"
+        funcaoK = "3.6*pow(10,3)"
         funcaoQ = funcaoQMais+"-("+funcaoQMenos+")"
         funcaoX = funcaoQ
         resultadoUm = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
@@ -204,7 +204,7 @@ def main():
         L = 1
         funcaoQMais  = "(30/(8*pow(10,-7))) * np.exp(-pow((x-0.5),2)/pow(0.08,2))"
         funcaoQMenos = "0"
-        funcaoK = "3.6"
+        funcaoK = "3.6*pow(10,3)"
         funcaoQ = funcaoQMais+"-("+funcaoQMenos+")"
         funcaoX = funcaoQ
         resultadoDois = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
@@ -218,7 +218,7 @@ def main():
         L = 1
         funcaoQMais  = "(30/(8*pow(10,-7))) * np.exp(-pow((x-0.5),2)/pow(0.015,2))"
         funcaoQMenos = "0"
-        funcaoK = "3.6"
+        funcaoK = "3.6*pow(10,3)"
         funcaoQ = funcaoQMais+"-("+funcaoQMenos+")"
         funcaoX = funcaoQ
         resultadoTres = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
@@ -232,8 +232,8 @@ def main():
         n = 63
         L = 1
         funcaoQMais  = "(20/(8*pow(10,-7)))"
-        funcaoQMenos = "(20/(8*pow(10,-7))) * ( np.exp(-pow((x/0.008),2)) + np.exp(-pow((x-1)/0.008,2)) )"
-        funcaoK = "3.6"
+        funcaoQMenos = "(20/(8*pow(10,-7))) * ( np.exp(-pow((x/0.3),2)) + np.exp(-pow((x-1)/0.3,2)) )"
+        funcaoK = "3.6*pow(10,3)"
         funcaoQ = funcaoQMais+"-("+funcaoQMenos+")"
         funcaoX = funcaoQ
         resultadoQuatro = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
@@ -241,9 +241,9 @@ def main():
         ## TESTE PRA DEBUGAR CURVA
         n = 63
         L = 1
-        funcaoQMais  = "0"
-        funcaoQMenos = "(20/(8*pow(10,-3))) * ( np.exp(-pow((x/0.1),2)) + np.exp(-pow((x-1)/0.1,2)) )"
-        funcaoK = "3.6"
+        funcaoQMais  = "(30/(8*pow(10,-7))) * np.exp(-pow((x-0.5),2)/pow(0.08,2))"
+        funcaoQMenos = "(30/(8*pow(10,-7))) * ( np.exp(-pow((x/0.4),2)) + np.exp(-pow((x-1)/0.4,2)) )"
+        funcaoK = "3.6*pow(10,3)"
         funcaoQ = funcaoQMais+"-("+funcaoQMenos+")"
         funcaoX = funcaoQ
         resultadoCinco = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
@@ -255,10 +255,10 @@ def main():
 
         x4 = np.linspace(0.0, 1.0, num=65)
         fig, ax = plt.subplots()
-        #line1, = ax.plot(x4, resultadoUm, label='Caso 1', marker = '.')
-        #line2, = ax.plot(x4, resultadoDois, label='Caso 2', marker = '.')
-        #line3, = ax.plot(x4, resultadoTres, label='Caso 3', marker = '.')
-        #line4, = ax.plot(x4, resultadoQuatro, label='Caso 4', marker='.')
+        line1, = ax.plot(x4, resultadoUm, label='Caso 1', marker = '.')
+        line2, = ax.plot(x4, resultadoDois, label='Caso 2', marker = '.')
+        line3, = ax.plot(x4, resultadoTres, label='Caso 3', marker = '.')
+        line4, = ax.plot(x4, resultadoQuatro, label='Caso 4', marker='.')
         line5, = ax.plot(x4, resultadoCinco, label='Caso 5', marker='.')
         ax.set_title('Análise do efeito da variação de Q(x)')
         ax.set_xlabel('Posicao')
@@ -288,9 +288,9 @@ def main():
         L = 1
         d = 0.3
         funcaoQMais  = "(30/(8*pow(10,-7))) * np.exp(-pow((x-0.5),2)/pow(0.08,2))"
-        funcaoQMenos = "(20/(8*pow(10,-7))) * ( np.exp(-pow((x/0.08),2)) + np.exp(-pow((x-1)/0.08,2)) )"
-        funcaoKa = "60"
-        funcaoKs = "3.6"
+        funcaoQMenos = "(20/(8*pow(10,-7))) * ( np.exp(-pow((x/0.8),2)) + np.exp(-pow((x-1)/0.8,2)) )"
+        funcaoKa = "60*pow(10,3)"
+        funcaoKs = "3.6*pow(10,3)"
         funcaoQ = funcaoQMais+"-("+funcaoQMenos+")"
         print(funcaoQ)
         funcaoX = funcaoQ
