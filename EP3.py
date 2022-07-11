@@ -190,10 +190,19 @@ def main():
         L = 1
         funcaoQMais  = "30/(8*pow(10,-7))"
         funcaoQMenos = "20/(8*pow(10,-7))"
-        funcaoK = "3.6*pow(10,3)"
+        funcaoK = "3.6"
         funcaoQ = funcaoQMais+"-("+funcaoQMenos+")"
         funcaoX = funcaoQ
         resultadoUm = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
+
+        h = L/(n+1)
+        x = np.zeros(n+2)
+        for i in range(0, n+2):
+            x[i] = i*h
+        
+        vetorNovoUm = np.zeros(n+2)
+        for i in range(0, n+2):
+            vetorNovoUm[i] = resultadoUm[i] - eval(funcaoQ)*293.15
 
         ##  Segundo caso considerado:                              ##
         ##  * Utilizou-se a funcao de Q+(x) descrita no PDF, com   ## 
@@ -202,9 +211,9 @@ def main():
         ##    variacao de Sigma na curva obtida.                   ##
         n = 63
         L = 1
-        funcaoQMais  = "(30/(8*pow(10,-7))) * np.exp(-pow((x-0.5),2)/pow(0.08,2))"
+        funcaoQMais  = "(30/(8*pow(10,3))) * np.exp(-pow((x-0.5),2)/pow(0.9,2))"
         funcaoQMenos = "0"
-        funcaoK = "3.6*pow(10,3)"
+        funcaoK = "3.6"
         funcaoQ = funcaoQMais+"-("+funcaoQMenos+")"
         funcaoX = funcaoQ
         resultadoDois = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
@@ -216,9 +225,9 @@ def main():
         ##    variacao de Sigma na curva obtida.                   ##
         n = 63
         L = 1
-        funcaoQMais  = "(30/(8*pow(10,-7))) * np.exp(-pow((x-0.5),2)/pow(0.015,2))"
+        funcaoQMais  = "(30/(8*pow(10,3))) * np.exp(-pow((x-0.5),2)/pow(1,2))"
         funcaoQMenos = "0"
-        funcaoK = "3.6*pow(10,3)"
+        funcaoK = "3.6"
         funcaoQ = funcaoQMais+"-("+funcaoQMenos+")"
         funcaoX = funcaoQ
         resultadoTres = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
@@ -231,35 +240,73 @@ def main():
         ##    (ou seja, um resfriamento menor que aquecimento).    ##
         n = 63
         L = 1
-        funcaoQMais  = "(20/(8*pow(10,-7)))"
-        funcaoQMenos = "(20/(8*pow(10,-7))) * ( np.exp(-pow((x/0.3),2)) + np.exp(-pow((x-1)/0.3,2)) )"
-        funcaoK = "3.6*pow(10,3)"
+        funcaoQMais  = "(30/(8*pow(10,3)))"
+        funcaoQMenos = "(20/(8*pow(10,3))) * ( np.exp(-pow((x/0.003),2)) + np.exp(-pow((x-1)/0.003,2)) )"
+        funcaoK = "3.6"
         funcaoQ = funcaoQMais+"-("+funcaoQMenos+")"
         funcaoX = funcaoQ
         resultadoQuatro = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
 
-        ## TESTE PRA DEBUGAR CURVA
+        ## CURVA 5 Q PARECE ESTAR CERTA
         n = 63
         L = 1
-        funcaoQMais  = "(30/(8*pow(10,-7))) * np.exp(-pow((x-0.5),2)/pow(0.08,2))"
+        funcaoQMais  = "(30/(8*pow(10,-7))) * np.exp(-pow((x-0.5),2)/pow(0.2,2))"
         funcaoQMenos = "(30/(8*pow(10,-7))) * ( np.exp(-pow((x/0.4),2)) + np.exp(-pow((x-1)/0.4,2)) )"
-        funcaoK = "3.6*pow(10,3)"
+        funcaoK = "3.6"
         funcaoQ = funcaoQMais+"-("+funcaoQMenos+")"
         funcaoX = funcaoQ
         resultadoCinco = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
 
+        h = L/(n+1)
+        vetorX = np.zeros(n+2)
+        for i in range(0, n+2):
+            vetorX[i] = i*h
         
-        #for i in range (0,n+2):
-        #    vetor[0] = 
+        vetorNovoCinco = np.zeros(n+2)
+        for i in range(0, n+2):
+            x = vetorX[i]
+            vetorNovoCinco[i] = resultadoCinco[i] - eval(funcaoQ)*293.15
+
+        
+        ## CURVA do amigo do Teodoro
+        n = 7
+        L = 1
+        #funcaoQMais  = "100"
+        #funcaoQMenos = "0"
+        funcaoK = "3.6"
+        funcaoQ = "0"
+        #funcaoX = funcaoQMais+"-("+funcaoQMenos+")"
+        funcaoX = "100*np.exp(-pow(x-(1/2),2)/pow(10,2)) - 50*(np.exp(-(np.power(x,2)/np.power(5,2))) + np.exp(-(np.power(x-1,2)/np.power(5,2))) )"
+        #funcaoY = - 50(np.exp(-(np.power(x,2)/np.power(5,2))) + np.exp(-(np.power(x-1,2)/np.power(5,2))))
+        resultadoSeis = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
+
+        ## CURVA da Namie
+        n = 60
+        L = 1
+        funcaoQMais  = "0"
+        funcaoQMenos = "100"
+        funcaoK = "3.6"
+        funcaoQ = "0"
+        funcaoX = funcaoQMais+"-("+funcaoQMenos+")"
+        #funcaoY = - 50(np.exp(-(np.power(x,2)/np.power(5,2))) + np.exp(-(np.power(x-1,2)/np.power(5,2))))
+        resultadoNamie = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
 
 
+        xNamie = np.linspace(0.0, 1.0, num=62)
         x4 = np.linspace(0.0, 1.0, num=65)
+        x1 = np.linspace(0.0, 1.0, num=9)
         fig, ax = plt.subplots()
-        line1, = ax.plot(x4, resultadoUm, label='Caso 1', marker = '.')
-        line2, = ax.plot(x4, resultadoDois, label='Caso 2', marker = '.')
-        line3, = ax.plot(x4, resultadoTres, label='Caso 3', marker = '.')
-        line4, = ax.plot(x4, resultadoQuatro, label='Caso 4', marker='.')
-        line5, = ax.plot(x4, resultadoCinco, label='Caso 5', marker='.')
+        #line1, = ax.plot(x4, resultadoUm, label='Caso 1', marker = '.')
+        #line2, = ax.plot(x4, resultadoDois, label='Caso 2', marker = '.')
+        #line3, = ax.plot(x4, resultadoTres, label='Caso 3', marker = '.')
+        #line4, = ax.plot(x4, resultadoQuatro, label='Caso 4', marker='.')
+        #line5, = ax.plot(x4, resultadoCinco, label='Caso 5', marker='.')
+        
+        #line6, = ax.plot(x4, resultadoSeis, label='Socorro Namie', marker = '.')
+        #line6, = ax.plot(x1, resultadoSeis, label='Socorro Namie', marker = '.')
+        line6, = ax.plot(xNamie, resultadoNamie, label='Socorro Namie', marker = '.')
+
+
         ax.set_title('Análise do efeito da variação de Q(x)')
         ax.set_xlabel('Posicao')
         ax.set_ylabel('Valor obtido')
