@@ -282,14 +282,15 @@ def main():
 
         ## CURVA da Namie
         n = 60
-        L = 1
-        funcaoQMais  = "0"
-        funcaoQMenos = "100"
+        L = 10
+        funcaoQMais  = "100"
+        funcaoQMenos = "10"
         funcaoK = "3.6"
         funcaoQ = "0"
         funcaoX = funcaoQMais+"-("+funcaoQMenos+")"
-        #funcaoY = - 50(np.exp(-(np.power(x,2)/np.power(5,2))) + np.exp(-(np.power(x-1,2)/np.power(5,2))))
         resultadoNamie = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
+        resultadoNamie2 = calculaMEFteste(n, L, 0, funcaoX, funcaoK, funcaoK, funcaoQ) #antes era so funcaoK, e n tinha d
+
 
 
         xNamie = np.linspace(0.0, 1.0, num=62)
@@ -305,6 +306,7 @@ def main():
         #line6, = ax.plot(x4, resultadoSeis, label='Socorro Namie', marker = '.')
         #line6, = ax.plot(x1, resultadoSeis, label='Socorro Namie', marker = '.')
         line6, = ax.plot(xNamie, resultadoNamie, label='Socorro Namie', marker = '.')
+        line7, = ax.plot(xNamie, resultadoNamie2, label='Socorro Namie', marker = '.')
 
 
         ax.set_title('Análise do efeito da variação de Q(x)')
@@ -358,18 +360,21 @@ def main():
 
     elif(menuChoice==5):
         ##  Dados do problema.  ##
-        n = 63
+        n = 60
         L = 1
-        d = 0.3
-        funcaoQ = "(30/(8*pow(10,-7))) * np.exp(-pow((x-0.5),2)/pow(0.08,2))"
+        d = 0.1
+        #funcaoQ = "(30/(8*pow(10,-7))) * np.exp(-pow((x-0.5),2)/pow(0.08,2))"
+        funcaoQ = "0"
+        funcaoQMais  = "100"
+        funcaoQMenos = "0"
+        funcaoX = funcaoQMais+"-("+funcaoQMenos+")"
         funcaoKa = "60"
         funcaoKs = "3.6"
-        funcaoX = funcaoQ
 
         resultado = calculaMEFteste(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ)
 
         ##  Plot do grafico das 4 series obtidas anteriormente neste exercicio.  ##
-        x4 = np.linspace(0.0, 1.0, num=65)
+        x4 = np.linspace(0.0, 1.0, num=62)
 
         fig, ax = plt.subplots()
         line1, = ax.plot(x4, resultado, label='Valor aproximado', marker = '.')
@@ -477,7 +482,7 @@ def calculaMEFteste(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ): #antes era s
     ##  Retorna vetor com os valores aproximados, nos pontos x_i.  ##
     return vetoruAproximado
 
-
+## Vou deixar essa funcao aqui pra "emergencias", mas APAGAR antes de mandar
 def calculaMEF(n, L, funcaoX, funcaoK, funcaoQ):
     ##  Cálculo do intervalo entre pontos.  ##
     h = L/(n+1)
