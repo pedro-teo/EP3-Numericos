@@ -193,8 +193,7 @@ def main():
         funcaoK = "3.6"
         funcaoQ = funcaoQMais+"-("+funcaoQMenos+")"
         funcaoX = funcaoQ
-        resultadoUm = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
-
+        resultadoUm = calculaMEF(n, L, 0, funcaoX, funcaoK, funcaoK, funcaoQ)
         h = L/(n+1)
         x = np.zeros(n+2)
         for i in range(0, n+2):
@@ -216,7 +215,7 @@ def main():
         funcaoK = "3.6"
         funcaoQ = funcaoQMais+"-("+funcaoQMenos+")"
         funcaoX = funcaoQ
-        resultadoDois = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
+        resultadoDois = calculaMEF(n, L, 0, funcaoX, funcaoK, funcaoK, funcaoQ)
 
         ##  Terceiro caso considerado:                             ##
         ##  * Utilizou-se a funcao de Q+(x) descrita no PDF, com   ## 
@@ -230,8 +229,8 @@ def main():
         funcaoK = "3.6"
         funcaoQ = funcaoQMais+"-("+funcaoQMenos+")"
         funcaoX = funcaoQ
-        resultadoTres = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
-        
+        resultadoTres = calculaMEF(n, L, 0, funcaoX, funcaoK, funcaoK, funcaoQ)
+
         ##  Quarto caso considerado:                               ##
         ##  * Utilizou-se a funcao de Q+(x) descrita no PDF, com   ## 
         ##    Q+0 = 30W / (20*20*2 mm3) e Sigma = 0.08.            ##
@@ -245,7 +244,7 @@ def main():
         funcaoK = "3.6"
         funcaoQ = funcaoQMais+"-("+funcaoQMenos+")"
         funcaoX = funcaoQ
-        resultadoQuatro = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
+        resultadoQuatro = calculaMEF(n, L, 0, funcaoX, funcaoK, funcaoK, funcaoQ)
 
         ## CURVA 5 Q PARECE ESTAR CERTA
         n = 63
@@ -255,7 +254,7 @@ def main():
         funcaoK = "3.6"
         funcaoQ = funcaoQMais+"-("+funcaoQMenos+")"
         funcaoX = funcaoQ
-        resultadoCinco = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
+        resultadoCinco = calculaMEF(n, L, 0, funcaoX, funcaoK, funcaoK, funcaoQ)
 
         h = L/(n+1)
         vetorX = np.zeros(n+2)
@@ -278,7 +277,7 @@ def main():
         #funcaoX = funcaoQMais+"-("+funcaoQMenos+")"
         funcaoX = "100*np.exp(-pow(x-(1/2),2)/pow(10,2)) - 50*(np.exp(-(np.power(x,2)/np.power(5,2))) + np.exp(-(np.power(x-1,2)/np.power(5,2))) )"
         #funcaoY = - 50(np.exp(-(np.power(x,2)/np.power(5,2))) + np.exp(-(np.power(x-1,2)/np.power(5,2))))
-        resultadoSeis = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
+        resultadoSeis = calculaMEF(n, L, 0, funcaoX, funcaoK, funcaoK, funcaoQ)
 
         ## CURVA da Namie
         n = 60
@@ -288,8 +287,8 @@ def main():
         funcaoK = "3.6"
         funcaoQ = "0"
         funcaoX = funcaoQMais+"-("+funcaoQMenos+")"
-        resultadoNamie = calculaMEF(n, L, funcaoX, funcaoK, funcaoQ)
-        resultadoNamie2 = calculaMEFteste(n, L, 0, funcaoX, funcaoK, funcaoK, funcaoQ) #antes era so funcaoK, e n tinha d
+        resultadoNamie = calculaMEF(n, L, 0, funcaoX, funcaoK, funcaoK, funcaoQ)
+        resultadoNamie2 = calculaMEF(n, L, 0, funcaoX, funcaoK, funcaoK, funcaoQ)
 
 
 
@@ -344,7 +343,8 @@ def main():
         print(funcaoQ)
         funcaoX = funcaoQ
 
-        resultado = calculaMEFteste(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ)
+        resultado = calculaMEF(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ)
+        print(resultado)
 
         ##  Plot do grafico das 4 series obtidas anteriormente neste exercicio.  ##
         x4 = np.linspace(0.0, 1.0, num=65)
@@ -371,7 +371,7 @@ def main():
         funcaoKa = "60"
         funcaoKs = "3.6"
 
-        resultado = calculaMEFteste(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ)
+        resultado = calculaMEF(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ)
 
         ##  Plot do grafico das 4 series obtidas anteriormente neste exercicio.  ##
         x4 = np.linspace(0.0, 1.0, num=62)
@@ -388,6 +388,104 @@ def main():
     ##  Mensagem de erro, para opcao escolhida invalida.  ##
     else:
         print("\nNenhuma opcao valida foi selecionada. Rode novamente o codigo!\n")
+        n = 60
+        L = 1
+        d = 0
+        funcaoQ = "0"
+        funcaoQMais  = "100 * np.exp(-pow(x-(1/2),2)/pow(5,2))"
+        funcaoQMenos = "50 * ( np.exp(-pow((x/10),2)) + np.exp(-pow((x-(1/2))/10,2)) )"
+        funcaoX = funcaoQMais+"-("+funcaoQMenos+")"
+        funcaoKa = "3.6"
+        funcaoKs = "3.6"
+        calculaMEFAB(n, L, d, funcaoX, funcaoKa, funcaoKs, funcaoQ, 0.5, 0.8)
+
+def calculaMEFAB(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ, a, b): #antes era so funcaoK, e n tinha d
+    ##  Calculo do limite entre materiais.  ##
+    limInferior = (L/2) - d
+    limSuperior = (L/2) + d 
+    
+    ##  Calculo do intervalo entre pontos.  ##
+    h = L/(n+1)
+    print("     Intervalo entre pontos: "+str(h))
+
+    ##  Criacao do vetor com valores x_i.  ##
+    x = np.zeros(n+2)
+    for i in range(0, n+2):
+        x[i] = i*h
+    print("     Valores do vetor x:")
+    print(x)
+
+    ##  Criacao da matriz A (tridiagonal) da equacao (8), representada em três vetores.  ##
+    diagA = np.zeros(n)
+    diagB = np.zeros(n)
+    diagC = np.zeros(n)
+
+    ##  Calculo da diagonal principal.  ##
+    for i in range (0, n):
+        if(x[i+1] > limInferior and x[i+1] < limSuperior):
+            funcaoK = funcaoKs
+        else:
+            funcaoK = funcaoKa
+        diagB[i] = pow((1/h),2) * calculaIntegral(x[i], x[i+1], funcaoK) + pow((-1/h),2) * calculaIntegral(x[i+1], x[i+2], funcaoK) + pow((1/h),2) * calculaIntegral(x[i], x[i+1], "("+funcaoQ+")*pow((x-"+str(x[i])+"),2)") + pow((1/h),2) * calculaIntegral(x[i+1], x[i+2], "("+funcaoQ+")*pow(("+str(x[i+2])+"-x),2)")
+
+    ##  Calculo da diagonal acima da diagonal principal.  ##
+    for i in range (0, n-1):
+        if(x[i+1] > limInferior and x[i+1] < limSuperior):
+            funcaoK = funcaoKs
+        else:
+            funcaoK = funcaoKa
+        diagC[i] = -1 * pow((1/h),2) * calculaIntegral(x[i+1], x[i+2], funcaoK) + pow((1/h),2) * calculaIntegral(x[i+1],x[i+2], "("+funcaoQ+")*("+str(x[i+2])+"-x)*(x-"+str(x[i+1])+")")
+
+    ##  Calculo da diagonal abaixo da diagonal principal.  ##
+    for i in range (1, n):
+        if(x[i+1] > limInferior and x[i+1] < limSuperior):
+            funcaoK = funcaoKs
+        else:
+            funcaoK = funcaoKa
+        diagA[i] = -1 * pow((1/h),2) * calculaIntegral(x[i], x[i+1], funcaoK) + pow((1/h),2) * calculaIntegral(x[i],x[i+1], "("+funcaoQ+")*("+str(x[i+1])+"-x)*(x-"+str(x[i])+")")
+
+    ##  Imprime as três diagonais criadas acima.  ##
+    print("     Vetor a da matriz A:")
+    print(diagA)
+    print("     Vetor b da matriz A:")
+    print(diagB)
+    print("     Vetor c da matriz A:")
+    print(diagC)
+
+    ##  Calculo do vetor b, da funcao chapeu da equacao (8).  ##
+    b = np.zeros(n)
+    for i in range(0, n):
+        b[i] = calculaIntegral(x[i],x[i+1],"("+funcaoX+")*(x-"+str(x[i])+")/"+str(h)) + calculaIntegral(x[i+1],x[i+2],"("+funcaoX+")*("+str(x[i+2])+"-x)/"+str(h))
+
+    ##  Imprime o vetor b, calculado acima.  ##
+    print("     Vetor b do sistema: ")
+    print(b)
+
+    ##  Resolve sistema matricial para achar o vetor alfa.  ##
+    vetorAlfa = resolveTridiagonal(n,diagA,diagB,diagC,b)
+
+    ##  Imprime o vetor alfa calculado acima.  ##
+    print("     Vetor alfa, resolvido:")
+    print(vetorAlfa)
+
+    ##  Finalmente, calculo do valor aproximado.  ##
+    vetoruAproximado = np.zeros(n+2)
+    
+    if(a==0 and b==0):
+        for j in range(0,n+2):
+            rAproximado = 0
+            for i in range(0, n):
+                if (x[j] <= x[i+1] and x[j] >= x[i]):
+                    rAproximado = rAproximado + vetorAlfa[i] * (x[j] - x[i]) / h
+                elif (x[j] <= x[i+2] and x[j] >= x[i+1]):
+                    rAproximado = rAproximado + vetorAlfa[i] * (x[i+2] - x[j]) / h
+            vetoruAproximado[j] = rAproximado
+    else:
+        for j in range(1,n+1):
+            vetoruAproximado[j-1] = vetorAlfa[j-1] + a + (b-a) * x[j]
+
+    ##  Retorna vetor com os valores aproximados, nos pontos x_i.  ##
+    return vetoruAproximado
 
 def calculaErroMaximo(n, vetoruAproximado, vetoruExato):
     erroMaximo = 0
