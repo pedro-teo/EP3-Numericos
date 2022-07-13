@@ -33,7 +33,7 @@ def main():
 
         ##  Calculos para n = 7.  ##
         print("\nPara n = 7: ")
-        vetoruAproximadoNSete = calculaMEF(7 , L , funcaoX , funcaoK , funcaoQ)
+        vetoruAproximadoNSete = calculaMEF(7 , L , 0, funcaoX , funcaoK , funcaoK,funcaoQ)
         vetoruExatoNSete = geraVetorValidacaoProblemaUm(7)
         vetorErroMaximoNSete = calculaErroMaximo(7, vetoruAproximadoNSete, vetoruExatoNSete)
         print("     Valores aproximados:\n", vetoruAproximadoNSete)
@@ -42,7 +42,7 @@ def main():
 
         ##  Calculos para n = 15.  ##
         print("\nPara n = 15: ")
-        vetoruAproximadoNQuinze = calculaMEF(15 , L , funcaoX , funcaoK , funcaoQ)
+        vetoruAproximadoNQuinze = calculaMEF(15 , L , 0, funcaoX , funcaoK , funcaoK, funcaoQ)
         vetoruExatoNQuinze = geraVetorValidacaoProblemaUm(15)
         vetorErroMaximoNQuinze = calculaErroMaximo(15, vetoruAproximadoNQuinze, vetoruExatoNQuinze)
         print("     Valores aproximados:\n", vetoruAproximadoNQuinze)
@@ -51,7 +51,7 @@ def main():
 
         ##  Calculos para n = 31.  ##
         print("\nPara n = 31: ")
-        vetoruAproximadoNTrinta = calculaMEF(31 , L , funcaoX , funcaoK , funcaoQ)
+        vetoruAproximadoNTrinta = calculaMEF(31 , L , 0, funcaoX , funcaoK , funcaoK, funcaoQ)
         vetoruExatoNTrinta = geraVetorValidacaoProblemaUm(31)
         vetorErroMaximoNTrinta = calculaErroMaximo(31, vetoruAproximadoNTrinta, vetoruExatoNTrinta)
         print("     Valores aproximados:\n", vetoruAproximadoNTrinta)
@@ -60,7 +60,7 @@ def main():
 
         ##  Calculos para n = 63.  ##
         print("\nPara n = 63: ")
-        vetoruAproximadoNSessenta = calculaMEF(63 , L , funcaoX , funcaoK , funcaoQ)
+        vetoruAproximadoNSessenta = calculaMEF(63 , L, 0, funcaoX, funcaoK, funcaoK, funcaoQ)
         vetoruExatoNSessenta = geraVetorValidacaoProblemaUm(63)
         vetorErroMaximoNSessenta = calculaErroMaximo(63, vetoruAproximadoNSessenta, vetoruExatoNSessenta)
         print("     Valores aproximados:\n", vetoruAproximadoNSessenta)
@@ -108,10 +108,10 @@ def main():
         funcaoX = "np.exp(x)+1"
         funcaoK = "np.exp(x)"
         funcaoQ = "0"
-        
+
         ##  Calculos para n = 7.  ##
         print("\nPara n = 7: ")
-        vetoruAproximadoNSete = calculaMEF(7 , L , funcaoX , funcaoK , funcaoQ)
+        vetoruAproximadoNSete = calculaMEF(7, L, 0, funcaoX, funcaoK, funcaoK, funcaoQ)
         vetoruExatoNSete = geraVetorValidacaoProblemaDois(7)
         vetorErroMaximoNSete = calculaErroMaximo(7, vetoruAproximadoNSete, vetoruExatoNSete)
         print("     Valores aproximados:\n", vetoruAproximadoNSete)
@@ -120,7 +120,7 @@ def main():
 
         ##  Calculos para n = 15.  ##
         print("\nPara n = 15: ")
-        vetoruAproximadoNQuinze = calculaMEF(15 , L , funcaoX , funcaoK , funcaoQ)
+        vetoruAproximadoNQuinze = calculaMEF(15, L, 0, funcaoX, funcaoK, funcaoK, funcaoQ)
         vetoruExatoNQuinze = geraVetorValidacaoProblemaDois(15)
         vetorErroMaximoNQuinze = calculaErroMaximo(15, vetoruAproximadoNQuinze, vetoruExatoNQuinze)
         print("     Valores aproximados:\n", vetoruAproximadoNQuinze)
@@ -129,7 +129,7 @@ def main():
 
         ##  Calculos para n = 31.  ##
         print("\nPara n = 31: ")
-        vetoruAproximadoNTrinta = calculaMEF(31 , L , funcaoX , funcaoK , funcaoQ)
+        vetoruAproximadoNTrinta = calculaMEF(31, L, 0, funcaoX, funcaoK, funcaoK, funcaoQ)
         vetoruExatoNTrinta = geraVetorValidacaoProblemaDois(31)
         vetorErroMaximoNTrinta = calculaErroMaximo(31, vetoruAproximadoNTrinta, vetoruExatoNTrinta)
         print("     Valores aproximados:\n", vetoruAproximadoNTrinta)
@@ -138,7 +138,7 @@ def main():
 
         ##  Calculos para n = 63.  ##
         print("\nPara n = 63: ")
-        vetoruAproximadoNSessenta = calculaMEF(63 , L , funcaoX , funcaoK , funcaoQ)
+        vetoruAproximadoNSessenta = calculaMEF(63, L, 0, funcaoX, funcaoK, funcaoK, funcaoQ)
         vetoruExatoNSessenta = geraVetorValidacaoProblemaDois(63)
         vetorErroMaximoNSessenta = calculaErroMaximo(63, vetoruAproximadoNSessenta, vetoruExatoNSessenta)
         print("     Valores aproximados:\n", vetoruAproximadoNSessenta)
@@ -397,7 +397,7 @@ def calculaErroMaximo(n, vetoruAproximado, vetoruExato):
             erroMaximo = diferencaModulo
     return erroMaximo
 
-def calculaMEFteste(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ): #antes era so funcaoK, e n tinha d
+def calculaMEF(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ): #antes era so funcaoK, e n tinha d
     ##  Calculo do limite entre materiais.  ##
     limInferior = (L/2) - d
     limSuperior = (L/2) + d 
@@ -483,7 +483,7 @@ def calculaMEFteste(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ): #antes era s
     return vetoruAproximado
 
 ## Vou deixar essa funcao aqui pra "emergencias", mas APAGAR antes de mandar
-def calculaMEF(n, L, funcaoX, funcaoK, funcaoQ):
+def calculaMEFpadrao(n, L, funcaoX, funcaoK, funcaoQ):
     ##  Cálculo do intervalo entre pontos.  ##
     h = L/(n+1)
     print("     Intervalo entre pontos: "+str(h))
