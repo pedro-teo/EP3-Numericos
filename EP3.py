@@ -191,10 +191,6 @@ def main():
         funcaoX = funcaoQMais+"-("+funcaoQMenos+")"
         funcaoQ = "0"
         resultadoUm = calculaMEF(n, L, 0, funcaoX, funcaoK, funcaoK, funcaoQ)
-        h = L/(n+1)
-        x = np.zeros(n+2)
-        for i in range(0, n+2):
-            x[i] = i*h
 
         ##  Segundo caso considerado:                              ##
         ##  * Utilizou-se a funcao de Q+(x) descrita no PDF, com   ## 
