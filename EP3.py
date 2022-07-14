@@ -336,9 +336,9 @@ def main():
         line1, = ax.plot(x4, primeiroCaso, label='Caso 1', marker = '.')
         line2, = ax.plot(x4, segundoCaso, label='Caso 2', marker = '.')
         line3, = ax.plot(x4, terceiroCaso, label='Caso 3', marker = '.')
-        ax.set_title('Valores ex3')
-        ax.set_xlabel('Valor de x')
-        ax.set_ylabel('Valores obtidos')
+        ax.set_title('Análise do efeito da variação de Ka, Ks e d')
+        ax.set_xlabel('Posicao no eixo x')
+        ax.set_ylabel('Valor estimado')
         ax.legend()
         plt.show()
 
