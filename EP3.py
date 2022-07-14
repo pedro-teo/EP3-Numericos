@@ -343,7 +343,7 @@ def main():
         plt.show()
 
     elif(menuChoice==5):
-        n = 60
+        n = 63
         L = 1
         d = 0
         funcaoQ = "0"
@@ -352,14 +352,27 @@ def main():
         funcaoX = funcaoQMais+"-("+funcaoQMenos+")"
         funcaoKa = "3.6"
         funcaoKs = "3.6"
-        calculaMEFAB(n, L, d, funcaoX, funcaoKa, funcaoKs, funcaoQ, 0.5, 0.8)
+        primeiroCaso = calculaMEFAB(n, L, d, funcaoX, funcaoKa, funcaoKs, funcaoQ, 0.5, 0.8)
+
+        ##  Plot do grafico das 3 series obtidas anteriormente neste exercicio.  ##
+        x4 = np.linspace(0.0, 1.0, num=65)
+        fig, ax = plt.subplots()
+        line1, = ax.plot(x4, primeiroCaso, label='Caso 1', marker = '.')
+        #line2, = ax.plot(x4, segundoCaso, label='Caso 2', marker = '.')
+        #line3, = ax.plot(x4, terceiroCaso, label='Caso 3', marker = '.')
+        ax.set_title('Análise do efeito da variação de Ka, Ks e d')
+        ax.set_xlabel('Posicao no eixo x')
+        ax.set_ylabel('Valor estimado')
+        ax.legend()
+        plt.show()
+
 
     ##  Mensagem de erro, para opcao escolhida invalida.  ##
     else:
         print("\nNenhuma opcao valida foi selecionada. Rode novamente o codigo!\n")
 
 ##  Funcao que executa o Metodo dos Elementos Finitos.  ## (com nao homogeneo tambem)
-def calculaMEFAB(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ, a, b):
+def calculaMEFAB(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ, extremoA, extremoB):
     ##  Calculo do limite entre materiais.  ##
     limInferior = (L/2) - d
     limSuperior = (L/2) + d 
@@ -431,7 +444,7 @@ def calculaMEFAB(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ, a, b):
     ##  Finalmente, calculo do valor aproximado.  ##
     vetoruAproximado = np.zeros(n+2)
     
-    if(a==0 and b==0):
+    if(extremoA==0 and extremoB==0):
         for j in range(0,n+2):
             rAproximado = 0
             for i in range(0, n):
@@ -441,12 +454,8 @@ def calculaMEFAB(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ, a, b):
                     rAproximado = rAproximado + vetorAlfa[i] * (x[i+2] - x[j]) / h
             vetoruAproximado[j] = rAproximado
     else:
-        vetoruAproximado[0] = a
-        vetoruAproximado[1] = b
-        for i in range(0,n):
-            #vetoruAproximado[j] = vetorAlfa[j] + a + (b-a) * x[j] 
-            xablau = a + (b-a) #* x[j+1]
-            vetoruAproximado[i] = vetorAlfa[i] + xablau
+        for j in range(1,n+1):
+            vetoruAproximado[j-1] = vetorAlfa[j-1] + extremoA + (extremoB-extremoA) * x[j] 
 
     print(vetoruAproximado)
 
