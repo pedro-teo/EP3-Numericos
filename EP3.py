@@ -228,59 +228,35 @@ def main():
         ##    (ou seja, um resfriamento menor que aquecimento).    ##
         n = 63
         L = 1
-        funcaoQMais  = "100 * np.exp(-pow((x-0.5),2)/pow(0.2,2))"
-        funcaoQMenos = " 50 * ( np.exp(-pow((x/0.003),2)) + np.exp(-pow((x-1)/0.003,2)) )"
+        funcaoQMais  = "0"
+        funcaoQMenos = "20"
         funcaoK = "3.6"
         funcaoQ = "0"
         funcaoX = funcaoQMais+"-("+funcaoQMenos+")"
         resultadoQuatro = calculaMEF(n, L, 0, funcaoX, funcaoK, funcaoK, funcaoQ)
 
-        ## Está plotando até aqui
-        ## CURVA 5 Q PARECE ESTAR CERTA
+        ##  Quinto caso considerado:                               ##
+        ##  * Utilizou-se a funcao de Q+(x) descrita no PDF, com   ## 
+        ##    Q+0 = 30W / (20*20*2 mm3) e Sigma = 0.08.            ##
+        ##  * Utilizou-se a funcao de Q-(x), descrita no PDF, com  ##
+        ##    Q-0 = 30W / (20*20*2 mm3)                ##
+        ##    (ou seja, um resfriamento menor que aquecimento).    ##
         n = 63
         L = 1
-        funcaoQMais  = "(30/(8*pow(10,-7))) * np.exp(-pow((x-0.5),2)/pow(0.2,2))"
-        funcaoQMenos = "(20/(8*pow(10,-7))) * ( np.exp(-pow((x/0.4),2)) + np.exp(-pow((x-1)/0.4,2)) )"
+        funcaoQMais  = "100 * np.exp(-pow((x-0.5),2)/pow(0.2,2))"
+        funcaoQMenos = " 50 * ( np.exp(-pow((x/0.003),2)) + np.exp(-pow((x-1)/0.003,2)) )"
         funcaoK = "3.6"
         funcaoQ = "0"
         funcaoX = funcaoQMais+"-("+funcaoQMenos+")"
         resultadoCinco = calculaMEF(n, L, 0, funcaoX, funcaoK, funcaoK, funcaoQ)
-
-        h = L/(n+1)
-        vetorX = np.zeros(n+2)
-        for i in range(0, n+2):
-            vetorX[i] = i*h
         
-        vetorNovoCinco = np.zeros(n+2)
-        for i in range(0, n+2):
-            x = vetorX[i]
-            vetorNovoCinco[i] = resultadoCinco[i] - eval(funcaoQ)*293.15
-
-        
-        ## CURVA do amigo do Teodoro
-        n = 7
+        ##  Sexto caso considerado:                               ##
+        n = 63
         L = 1
-        #funcaoQMais  = "100"
-        #funcaoQMenos = "0"
         funcaoK = "3.6"
         funcaoQ = "0"
-        #funcaoX = funcaoQMais+"-("+funcaoQMenos+")"
         funcaoX = "100*np.exp(-pow(x-(1/2),2)/pow(10,2)) - 50*(np.exp(-(np.power(x,2)/np.power(5,2))) + np.exp(-(np.power(x-1,2)/np.power(5,2))) )"
-        #funcaoY = - 50(np.exp(-(np.power(x,2)/np.power(5,2))) + np.exp(-(np.power(x-1,2)/np.power(5,2))))
         resultadoSeis = calculaMEF(n, L, 0, funcaoX, funcaoK, funcaoK, funcaoQ)
-
-        ## CURVA da Namie
-        n = 60
-        L = 10
-        funcaoQMais  = "100"
-        funcaoQMenos = "10"
-        funcaoK = "3.6"
-        funcaoQ = "0"
-        funcaoX = funcaoQMais+"-("+funcaoQMenos+")"
-        resultadoNamie = calculaMEF(n, L, 0, funcaoX, funcaoK, funcaoK, funcaoQ)
-        resultadoNamie2 = calculaMEF(n, L, 0, funcaoX, funcaoK, funcaoK, funcaoQ)
-
-
 
         xNamie = np.linspace(0.0, 1.0, num=62)
         x4 = np.linspace(0.0, 1.0, num=65)
@@ -290,9 +266,9 @@ def main():
         line2, = ax.plot(x4, resultadoDois, label='Caso 2', marker = '.')
         line3, = ax.plot(x4, resultadoTres, label='Caso 3', marker = '.')
         line4, = ax.plot(x4, resultadoQuatro, label='Caso 4', marker='.')
-        #line5, = ax.plot(x4, resultadoCinco, label='Caso 5', marker='.')
+        line5, = ax.plot(x4, resultadoCinco, label='Caso 5', marker='.')
         
-        ##line6, = ax.plot(x4, resultadoSeis, label='Socorro Namie', marker = '.')
+        line6, = ax.plot(x4, resultadoSeis, label='Caso socorro', marker = '.')
         #line6, = ax.plot(x1, resultadoSeis, label='Socorro Namie', marker = '.')
         #line6, = ax.plot(xNamie, resultadoNamie, label='Socorro Namie', marker = '.')
         #line7, = ax.plot(xNamie, resultadoNamie2, label='Socorro Namie', marker = '.')
