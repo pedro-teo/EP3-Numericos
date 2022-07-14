@@ -343,6 +343,7 @@ def main():
         plt.show()
 
     elif(menuChoice==5):
+        ##  Caso 1: Extremidades com condicoes nao homogeneas.  ##
         n = 63
         L = 1
         d = 0
@@ -354,12 +355,25 @@ def main():
         funcaoKs = "3.6"
         primeiroCaso = calculaMEFAB(n, L, d, funcaoX, funcaoKa, funcaoKs, funcaoQ, 0.5, 0.8)
 
+        ##  Caso 2: Intervalo com L diferente de 1.  ##
+        n = 63
+        L = 7
+        d = 0
+        funcaoQ = "0"
+        funcaoQMais  = "100 * np.exp(-pow(x-(1/2),2)/pow(5,2))"
+        funcaoQMenos = "50 * ( np.exp(-pow((x/10),2)) + np.exp(-pow((x-(1/2))/10,2)) )"
+        funcaoX = funcaoQMais+"-("+funcaoQMenos+")"
+        funcaoKa = "3.6"
+        funcaoKs = "3.6"
+        segundoCaso = calculaMEFAB(n, L, d, funcaoX, funcaoKa, funcaoKs, funcaoQ, 0, 0)
+
         ##  Plot do grafico das 3 series obtidas anteriormente neste exercicio.  ##
-        x4 = np.linspace(0.0, 1.0, num=65)
+        #x4 = np.linspace(0.0, 1.0, num=65)
+        xteste = np.linspace(0.0, 7.0, num=65)
         fig, ax = plt.subplots()
-        line1, = ax.plot(x4, primeiroCaso, label='Caso 1', marker = '.')
+        #line1, = ax.plot(x4, primeiroCaso, label='Caso 1', marker = '.')
         #line2, = ax.plot(x4, segundoCaso, label='Caso 2', marker = '.')
-        #line3, = ax.plot(x4, terceiroCaso, label='Caso 3', marker = '.')
+        line1, = ax.plot(xteste, segundoCaso, label='Caso 3', marker = '.')
         ax.set_title('Análise do efeito da variação de Ka, Ks e d')
         ax.set_xlabel('Posicao no eixo x')
         ax.set_ylabel('Valor estimado')
