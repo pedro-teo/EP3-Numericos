@@ -15,6 +15,8 @@ no computador para compilacao e uso:
 - Python 3.7 para redigir o algoritmo, em geral
 - Biblioteca Numpy, para calculos com exponenciais, o número pi e geração de vetores,
   com as funções np.exp(x), np.pi e np.zeros((n,m))
+- Biblioteca MatPlotLib, para gerar os graficos que elucidam visualmente os valores 
+  aproximados pelas funcoes desenvolvidas no presente EP
 
 Para rodar este codigo e de fato testa-lo, um modo intuitivo envolve utilizar o
 programa Visual Studio Code (tambem conhecido como VSCode), disponivel para todas
