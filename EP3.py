@@ -339,7 +339,6 @@ def main():
         ax.set_title('Valores ex3')
         ax.set_xlabel('Valor de x')
         ax.set_ylabel('Valores obtidos')
-
         ax.legend()
         plt.show()
 
