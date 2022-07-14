@@ -343,32 +343,6 @@ def main():
         plt.show()
 
     elif(menuChoice==5):
-        ##  Dados do problema.  ##
-        n = 60
-        L = 1
-        d = 0.1
-        funcaoQ = "0"
-        funcaoQMais  = "100"
-        funcaoQMenos = "0"
-        funcaoX = funcaoQMais+"-("+funcaoQMenos+")"
-        funcaoKa = "60"
-        funcaoKs = "3.6"
-
-        resultado = calculaMEF(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ)
-
-        ##  Plot do grafico das 4 series obtidas anteriormente neste exercicio.  ##
-        x4 = np.linspace(0.0, 1.0, num=62)
-
-        fig, ax = plt.subplots()
-        line1, = ax.plot(x4, resultado, label='Valor aproximado', marker = '.')
-        ax.set_title('Valores ex3')
-        ax.set_xlabel('Valor de x')
-        ax.set_ylabel('Valores obtidos')
-
-        ax.legend()
-        plt.show()
-    
-    elif(menuChoice==6):
         n = 60
         L = 1
         d = 0
@@ -384,7 +358,8 @@ def main():
     else:
         print("\nNenhuma opcao valida foi selecionada. Rode novamente o codigo!\n")
 
-def calculaMEFAB(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ, a, b): #antes era so funcaoK, e n tinha d
+##  Funcao que executa o Metodo dos Elementos Finitos.  ## (com nao homogeneo tambem)
+def calculaMEFAB(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ, a, b):
     ##  Calculo do limite entre materiais.  ##
     limInferior = (L/2) - d
     limSuperior = (L/2) + d 
@@ -478,6 +453,7 @@ def calculaMEFAB(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ, a, b): #antes er
     ##  Retorna vetor com os valores aproximados, nos pontos x_i.  ##
     return vetoruAproximado
 
+##  Funcao que calcula o erro maximo, para casos com valores exatos.  ##
 def calculaErroMaximo(n, vetoruAproximado, vetoruExato):
     erroMaximo = 0
     for i in range (0,n):
@@ -486,7 +462,8 @@ def calculaErroMaximo(n, vetoruAproximado, vetoruExato):
             erroMaximo = diferencaModulo
     return erroMaximo
 
-def calculaMEF(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ): #antes era so funcaoK, e n tinha d
+##  Funcao que executa o Metodo dos Elementos Finitos.  ##
+def calculaMEF(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ):
     ##  Calculo do limite entre materiais.  ##
     limInferior = (L/2) - d
     limSuperior = (L/2) + d 
@@ -556,7 +533,6 @@ def calculaMEF(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ): #antes era so fun
     print(vetorAlfa)
 
     ##  Finalmente, calculo do valor aproximado.  ##
-    #vetoruExato      = np.zeros(n+2)
     vetoruAproximado = np.zeros(n+2)
 
     for j in range(0,n+2):
@@ -567,77 +543,6 @@ def calculaMEF(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ): #antes era so fun
             elif (x[j] <= x[i+2] and x[j] >= x[i+1]):
                 rAproximado = rAproximado + vetorAlfa[i] * (x[i+2] - x[j]) / h
         vetoruAproximado[j] = rAproximado
-
-    ##  Retorna vetor com os valores aproximados, nos pontos x_i.  ##
-    return vetoruAproximado
-
-## Vou deixar essa funcao aqui pra "emergencias", mas APAGAR antes de mandar
-def calculaMEFpadrao(n, L, funcaoX, funcaoK, funcaoQ):
-    ##  Cálculo do intervalo entre pontos.  ##
-    h = L/(n+1)
-    print("     Intervalo entre pontos: "+str(h))
-
-    ##  Criacao do vetor com valores x_i.  ##
-    x = np.zeros(n+2)
-    for i in range(0, n+2):
-        x[i] = i*h
-    print("     Valores do vetor x:")
-    print(x)
-
-    ##  Criacao da matriz A (tridiagonal) da equacao (8), representada em três vetores.  ##
-    diagA = np.zeros(n)
-    diagB = np.zeros(n)
-    diagC = np.zeros(n)
-
-    ##  Calculo da diagonal principal.  ##
-    for i in range (0, n):
-        diagB[i] = pow((1/h),2) * calculaIntegral(x[i], x[i+1], funcaoK) + pow((-1/h),2) * calculaIntegral(x[i+1], x[i+2], funcaoK) + pow((1/h),2) * calculaIntegral(x[i], x[i+1], "("+funcaoQ+")*pow((x-"+str(x[i])+"),2)") + pow((1/h),2) * calculaIntegral(x[i+1], x[i+2], "("+funcaoQ+")*pow(("+str(x[i+2])+"-x),2)")
-
-    ##  Calculo da diagonal acima da diagonal principal.  ##
-    for i in range (0, n-1):
-        diagC[i] = -1 * pow((1/h),2) * calculaIntegral(x[i+1], x[i+2], funcaoK) + pow((1/h),2) * calculaIntegral(x[i+1],x[i+2], "("+funcaoQ+")*("+str(x[i+2])+"-x)*(x-"+str(x[i+1])+")")
-
-    ##  Calculo da diagonal abaixo da diagonal principal.  ##
-    for i in range (1, n):
-        diagA[i] = -1 * pow((1/h),2) * calculaIntegral(x[i], x[i+1], funcaoK) + pow((1/h),2) * calculaIntegral(x[i],x[i+1], "("+funcaoQ+")*("+str(x[i+1])+"-x)*(x-"+str(x[i])+")")
-
-    ##  Imprime as três diagonais criadas acima.  ##
-    print("     Vetor a da matriz A:")
-    print(diagA)
-    print("     Vetor b da matriz A:")
-    print(diagB)
-    print("     Vetor c da matriz A:")
-    print(diagC)
-
-    ##  Calculo do vetor b, da funcao chapeu da equacao (8).  ##
-    b = np.zeros(n)
-    for i in range(0, n):
-        b[i] = calculaIntegral(x[i],x[i+1],"("+funcaoX+")*(x-"+str(x[i])+")/"+str(h)) + calculaIntegral(x[i+1],x[i+2],"("+funcaoX+")*("+str(x[i+2])+"-x)/"+str(h))
-
-    ##  Imprime o vetor b, calculado acima.  ##
-    print("     Vetor b do sistema: ")
-    print(b)
-
-    ##  Resolve sistema matricial para achar o vetor alfa.  ##
-    vetorAlfa = resolveTridiagonal(n,diagA,diagB,diagC,b)
-
-    ##  Imprime o vetor alfa calculado acima.  ##
-    print("     Vetor alfa, resolvido:")
-    print(vetorAlfa)
-
-    ##  Finalmente, calculo do valor aproximado.  ##
-    #vetoruExato      = np.zeros(n+2)
-    vetoruAproximado = np.zeros(n+2)
-
-    for j in range(0,n+2):
-        rAproximado = 0
-        for i in range(0, n):
-            if (x[j] <= x[i+1] and x[j] >= x[i]):
-                rAproximado = rAproximado + vetorAlfa[i] * (x[j] - x[i]) / h
-            elif (x[j] <= x[i+2] and x[j] >= x[i+1]):
-                rAproximado = rAproximado + vetorAlfa[i] * (x[i+2] - x[j]) / h
-        vetoruAproximado[j] = rAproximado
-        #vetoruExato[j] =  pow(x[j],2) * pow((1 - x[j]),2)
 
     ##  Retorna vetor com os valores aproximados, nos pontos x_i.  ##
     return vetoruAproximado
@@ -649,7 +554,6 @@ def geraVetorValidacaoProblemaUm(n):
 
     ##  Cálculo do intervalo entre pontos.  ##
     h = 1/(n+1)
-
     for i in range(0, n+2):
         x[i] = i*h
 
@@ -666,7 +570,6 @@ def geraVetorValidacaoProblemaDois(n):
 
     ##  Cálculo do intervalo entre pontos.  ##
     h = 1/(n+1)
-
     for i in range(0, n+2):
         x[i] = i*h
     
