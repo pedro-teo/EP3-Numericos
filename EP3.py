@@ -358,7 +358,7 @@ def main():
         ##  Plot do grafico da serie obtida neste exercicio.  ##
         eixoX = np.linspace(0.0, 1.0, num=63)
         fig, ax = plt.subplots()
-        line1, = ax.plot(eixoX, primeiroCaso, label='Caso 3', marker = '.')
+        line1, = ax.plot(eixoX, primeiroCaso, marker = '.')
         ax.set_title('Análise do efeito de condicoes nao homogeneas')
         ax.set_xlabel('Posicao no eixo x')
         ax.set_ylabel('Valor estimado')
@@ -381,7 +381,7 @@ def main():
         ##  Plot do grafico da serie obtida neste exercicio.  ##
         eixoX = np.linspace(0.0, 7.0, num=65)
         fig, ax = plt.subplots()
-        line1, = ax.plot(eixoX, primeiroCaso, label='Caso 3', marker = '.')
+        line1, = ax.plot(eixoX, primeiroCaso, marker = '.')
         ax.set_title('Análise do efeito de L diferente de 1')
         ax.set_xlabel('Posicao no eixo x')
         ax.set_ylabel('Valor estimado')
