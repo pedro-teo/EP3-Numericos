@@ -342,8 +342,8 @@ def main():
         ax.legend()
         plt.show()
 
+    ##  Caso em que as extremidades possuem condicoes nao homogeneas.  ##
     elif(menuChoice==5):
-        ##  Caso 1: Extremidades com condicoes nao homogeneas.  ##
         n = 63
         L = 1
         d = 0
@@ -355,7 +355,18 @@ def main():
         funcaoKs = "3.6"
         primeiroCaso = calculaMEFAB(n, L, d, funcaoX, funcaoKa, funcaoKs, funcaoQ, 0.5, 0.8)
 
-        ##  Caso 2: Intervalo com L diferente de 1.  ##
+        ##  Plot do grafico da serie obtida neste exercicio.  ##
+        eixoX = np.linspace(0.0, 1.0, num=63)
+        fig, ax = plt.subplots()
+        line1, = ax.plot(eixoX, primeiroCaso, label='Caso 3', marker = '.')
+        ax.set_title('Análise do efeito de condicoes nao homogeneas')
+        ax.set_xlabel('Posicao no eixo x')
+        ax.set_ylabel('Valor estimado')
+        ax.legend()
+        plt.show()
+
+    ##  Caso em que o intervalo é L diferente de 1.  ##
+    elif(menuChoice==6):
         n = 63
         L = 7
         d = 0
@@ -365,16 +376,13 @@ def main():
         funcaoX = funcaoQMais+"-("+funcaoQMenos+")"
         funcaoKa = "3.6"
         funcaoKs = "3.6"
-        segundoCaso = calculaMEFAB(n, L, d, funcaoX, funcaoKa, funcaoKs, funcaoQ, 0, 0)
+        primeiroCaso = calculaMEFAB(n, L, d, funcaoX, funcaoKa, funcaoKs, funcaoQ, 0, 0)
 
-        ##  Plot do grafico das 3 series obtidas anteriormente neste exercicio.  ##
-        #x4 = np.linspace(0.0, 1.0, num=65)
-        xteste = np.linspace(0.0, 7.0, num=65)
+        ##  Plot do grafico da serie obtida neste exercicio.  ##
+        eixoX = np.linspace(0.0, 7.0, num=65)
         fig, ax = plt.subplots()
-        #line1, = ax.plot(x4, primeiroCaso, label='Caso 1', marker = '.')
-        #line2, = ax.plot(x4, segundoCaso, label='Caso 2', marker = '.')
-        line1, = ax.plot(xteste, segundoCaso, label='Caso 3', marker = '.')
-        ax.set_title('Análise do efeito da variação de Ka, Ks e d')
+        line1, = ax.plot(eixoX, primeiroCaso, label='Caso 3', marker = '.')
+        ax.set_title('Análise do efeito de L diferente de 1')
         ax.set_xlabel('Posicao no eixo x')
         ax.set_ylabel('Valor estimado')
         ax.legend()
@@ -459,6 +467,7 @@ def calculaMEFAB(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ, extremoA, extrem
     vetoruAproximado = np.zeros(n+2)
     
     if(extremoA==0 and extremoB==0):
+        vetoruAproximado = np.zeros(n+2)
         for j in range(0,n+2):
             rAproximado = 0
             for i in range(0, n):
@@ -468,6 +477,7 @@ def calculaMEFAB(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ, extremoA, extrem
                     rAproximado = rAproximado + vetorAlfa[i] * (x[i+2] - x[j]) / h
             vetoruAproximado[j] = rAproximado
     else:
+        vetoruAproximado = np.zeros(n)
         for j in range(1,n+1):
             vetoruAproximado[j-1] = vetorAlfa[j-1] + extremoA + (extremoB-extremoA) * x[j] 
 
