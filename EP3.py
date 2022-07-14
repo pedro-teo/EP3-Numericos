@@ -75,6 +75,7 @@ def main():
         print("     Erro maximo (n=63): ",vetorErroMaximoNSessenta)
         print("\nO sistema agora abrira um grafico, contendo as curvas obtidas.")
         print("Caso deseje executar outra opcao, feche o grafico primeiro e,\ndepois, rode o codigo novamente.\n")
+       
         ##  Plot do grafico das 4 series obtidas anteriormente neste exercicio.  ##
         x1 = np.linspace(0.0, 1.0, num=9)
         x2 = np.linspace(0.0, 1.0, num=17)
@@ -180,16 +181,12 @@ def main():
     
     ##  Resolucao do item 4.3, de equilibrio com forcantes de calor.  ##
     elif(menuChoice==3):
-        ##  Primeiro caso considerado:                             ##
-        ##  * Utilizou-se a funcao de Q+0 descrita no PDF, com     ## 
-        ##    Q+0 = 30W / (20*20*2 mm3).                           ##
-        ##  * Para Q-0, considerou-se que a perda de calor ocorre  ##
-        ##    de forma semelhante, com Q-0 = 20W / (20*20*2 mm3)   ##
-        ##    (ou seja, um resfriamento menor que aquecimento).    ##
+        ##  Primeiro caso considerado:        ##
+        ##  Valores constantes para Q+ e Q-.  ##   
         n = 63
         L = 1
-        funcaoQMais  = "30/(8*pow(10,-7))"
-        funcaoQMenos = "20/(8*pow(10,-7))"
+        funcaoQMais  = "100"
+        funcaoQMenos = "50"
         funcaoK = "3.6"
         funcaoQ = funcaoQMais+"-("+funcaoQMenos+")"
         funcaoX = funcaoQ
@@ -239,21 +236,21 @@ def main():
         ##    (ou seja, um resfriamento menor que aquecimento).    ##
         n = 63
         L = 1
-        funcaoQMais  = "(30/(8*pow(10,3)))"
-        funcaoQMenos = "(20/(8*pow(10,3))) * ( np.exp(-pow((x/0.003),2)) + np.exp(-pow((x-1)/0.003,2)) )"
+        funcaoQMais  = "(30/(8*pow(10,-7)))"
+        funcaoQMenos = "(20/(8*pow(10,-7))) * ( np.exp(-pow((x/0.003),2)) + np.exp(-pow((x-1)/0.003,2)) )"
         funcaoK = "3.6"
-        funcaoQ = funcaoQMais+"-("+funcaoQMenos+")"
-        funcaoX = funcaoQ
+        funcaoQ = "0"
+        funcaoX = funcaoQMais+"-("+funcaoQMenos+")"
         resultadoQuatro = calculaMEF(n, L, 0, funcaoX, funcaoK, funcaoK, funcaoQ)
 
         ## CURVA 5 Q PARECE ESTAR CERTA
         n = 63
         L = 1
         funcaoQMais  = "(30/(8*pow(10,-7))) * np.exp(-pow((x-0.5),2)/pow(0.2,2))"
-        funcaoQMenos = "(30/(8*pow(10,-7))) * ( np.exp(-pow((x/0.4),2)) + np.exp(-pow((x-1)/0.4,2)) )"
+        funcaoQMenos = "(20/(8*pow(10,-7))) * ( np.exp(-pow((x/0.4),2)) + np.exp(-pow((x-1)/0.4,2)) )"
         funcaoK = "3.6"
-        funcaoQ = funcaoQMais+"-("+funcaoQMenos+")"
-        funcaoX = funcaoQ
+        funcaoQ = "0"
+        funcaoX = funcaoQMais+"-("+funcaoQMenos+")"
         resultadoCinco = calculaMEF(n, L, 0, funcaoX, funcaoK, funcaoK, funcaoQ)
 
         h = L/(n+1)
@@ -296,16 +293,16 @@ def main():
         x4 = np.linspace(0.0, 1.0, num=65)
         x1 = np.linspace(0.0, 1.0, num=9)
         fig, ax = plt.subplots()
-        #line1, = ax.plot(x4, resultadoUm, label='Caso 1', marker = '.')
+        line1, = ax.plot(x4, resultadoUm, label='Caso 1', marker = '.')
         #line2, = ax.plot(x4, resultadoDois, label='Caso 2', marker = '.')
         #line3, = ax.plot(x4, resultadoTres, label='Caso 3', marker = '.')
         #line4, = ax.plot(x4, resultadoQuatro, label='Caso 4', marker='.')
         #line5, = ax.plot(x4, resultadoCinco, label='Caso 5', marker='.')
         
-        #line6, = ax.plot(x4, resultadoSeis, label='Socorro Namie', marker = '.')
+        ##line6, = ax.plot(x4, resultadoSeis, label='Socorro Namie', marker = '.')
         #line6, = ax.plot(x1, resultadoSeis, label='Socorro Namie', marker = '.')
-        line6, = ax.plot(xNamie, resultadoNamie, label='Socorro Namie', marker = '.')
-        line7, = ax.plot(xNamie, resultadoNamie2, label='Socorro Namie', marker = '.')
+        #line6, = ax.plot(xNamie, resultadoNamie, label='Socorro Namie', marker = '.')
+        #line7, = ax.plot(xNamie, resultadoNamie2, label='Socorro Namie', marker = '.')
 
 
         ax.set_title('Análise do efeito da variação de Q(x)')
@@ -384,10 +381,8 @@ def main():
 
         ax.legend()
         plt.show()
-
-    ##  Mensagem de erro, para opcao escolhida invalida.  ##
-    else:
-        print("\nNenhuma opcao valida foi selecionada. Rode novamente o codigo!\n")
+    
+    elif(menuChoice==6):
         n = 60
         L = 1
         d = 0
@@ -398,6 +393,10 @@ def main():
         funcaoKa = "3.6"
         funcaoKs = "3.6"
         calculaMEFAB(n, L, d, funcaoX, funcaoKa, funcaoKs, funcaoQ, 0.5, 0.8)
+
+    ##  Mensagem de erro, para opcao escolhida invalida.  ##
+    else:
+        print("\nNenhuma opcao valida foi selecionada. Rode novamente o codigo!\n")
 
 def calculaMEFAB(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ, a, b): #antes era so funcaoK, e n tinha d
     ##  Calculo do limite entre materiais.  ##
@@ -481,8 +480,14 @@ def calculaMEFAB(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ, a, b): #antes er
                     rAproximado = rAproximado + vetorAlfa[i] * (x[i+2] - x[j]) / h
             vetoruAproximado[j] = rAproximado
     else:
-        for j in range(1,n+1):
-            vetoruAproximado[j-1] = vetorAlfa[j-1] + a + (b-a) * x[j]
+        vetoruAproximado[0] = a
+        vetoruAproximado[1] = b
+        for i in range(0,n):
+            #vetoruAproximado[j] = vetorAlfa[j] + a + (b-a) * x[j] 
+            xablau = a + (b-a) #* x[j+1]
+            vetoruAproximado[i] = vetorAlfa[i] + xablau
+
+    print(vetoruAproximado)
 
     ##  Retorna vetor com os valores aproximados, nos pontos x_i.  ##
     return vetoruAproximado
