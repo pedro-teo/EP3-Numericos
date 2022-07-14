@@ -277,36 +277,65 @@ def main():
 
     ##  Resolucao do item 4.4, de equilibrio com variacao de material.  ##
     elif(menuChoice==4):
+        ##  Primeiro caso considerado:                             ##
         ##  Note:                                                  ##
-        ##  * Para comportar a variacao do material, refletida     ##
-        ##    no uso de ks e ka, foi confeccionada uma segunda     ##
-        ##    funcao de calculo de MEF, com entradas extras:       ##
-        ##    ks, ka e d.                                          ##
-        ##  * Utilizou-se a funcao de Q+(x) descrita no PDF, com   ## 
-        ##    Q+0 = 30W / (20*20*2 mm3)                            ##
-        ##  * Utilizou-se a funcao de Q-(x) descrita no PDF, com   ## 
-        ##    Q+0 = 30W / (20*20*2 mm3)                            ##
-
-        ##  Dados do problema.  ##
+        ##  * Utilizaram-se as funcoes de Q+(x) e Q-(x)            ##      
+        ##    descritas no PDF, com Q+0 = 100W e Q-0 = 50. Além    ##
+        ##    disso, Sigma = 0.2 e Theta = 0.08.                   ##
+        ##  * Utilizou-se d = 0.4, com Ka = 60 e Ks = 300.         ## 
         n = 63
         L = 1
-        d = 0.3
-        funcaoQMais  = "(30/(8*pow(10,-7))) * np.exp(-pow((x-0.5),2)/pow(0.08,2))"
-        funcaoQMenos = "(20/(8*pow(10,-7))) * ( np.exp(-pow((x/0.8),2)) + np.exp(-pow((x-1)/0.8,2)) )"
-        funcaoKa = "60*pow(10,3)"
-        funcaoKs = "3.6*pow(10,3)"
-        funcaoQ = funcaoQMais+"-("+funcaoQMenos+")"
-        print(funcaoQ)
-        funcaoX = funcaoQ
+        d = 0.4
+        funcaoQMais  = "100 * np.exp(-pow((x-0.5),2)/pow(0.2,2))"
+        funcaoQMenos = "50  * ( np.exp(-pow((x/0.08),2)) + np.exp(-pow((x-1)/0.08,2)) )"
+        funcaoQ = "0"
+        funcaoKa = "60"
+        funcaoKs = "300"
+        funcaoX = funcaoQMais+"-("+funcaoQMenos+")"
+        primeiroCaso = calculaMEF(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ)
 
-        resultado = calculaMEF(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ)
-        print(resultado)
+        ##  Segundo caso considerado:                              ##
+        ##  Note:                                                  ##
+        ##  * Utilizaram-se as funcoes de Q+(x) e Q-(x)            ##      
+        ##    descritas no PDF, com Q+0 = 100W e Q-0 = 50. Além    ##
+        ##    disso, Sigma = 0.2 e Theta = 0.08.                   ##
+        ##  * Utilizou-se d = 0.1, com Ka = 60 e Ks = 300, para    ##
+        ##    analisar a influencia da variacao do d.              ## 
+        n = 63
+        L = 1
+        d = 0.1
+        funcaoQMais  = "100 * np.exp(-pow((x-0.5),2)/pow(0.2,2))"
+        funcaoQMenos = "50  * ( np.exp(-pow((x/0.08),2)) + np.exp(-pow((x-1)/0.08,2)) )"
+        funcaoQ = "0"
+        funcaoKa = "60"
+        funcaoKs = "300"
+        funcaoX = funcaoQMais+"-("+funcaoQMenos+")"
+        segundoCaso = calculaMEF(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ)
+
+        ##  Terceiro caso considerado:                             ##
+        ##  Note:                                                  ##
+        ##  * Utilizaram-se as funcoes de Q+(x) e Q-(x)            ##      
+        ##    descritas no PDF, com Q+0 = 100W e Q-0 = 50. Além    ##
+        ##    disso, Sigma = 0.08 e Theta = 0.8.                   ##
+        ##  * Utilizou-se d = 0.4, com Ka = 60 e Ks = 100, para    ##
+        ##    analisar a influencia de um Ka proximo a Ks.         ## 
+        n = 63
+        L = 1
+        d = 0.4
+        funcaoQMais  = "100 * np.exp(-pow((x-0.5),2)/pow(0.08,2))"
+        funcaoQMenos = "50  * ( np.exp(-pow((x/0.8),2)) + np.exp(-pow((x-1)/0.8,2)) )"
+        funcaoQ = "0"
+        funcaoKa = "60"
+        funcaoKs = "100"
+        funcaoX = funcaoQMais+"-("+funcaoQMenos+")"
+        terceiroCaso = calculaMEF(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ)
 
         ##  Plot do grafico das 4 series obtidas anteriormente neste exercicio.  ##
         x4 = np.linspace(0.0, 1.0, num=65)
-
         fig, ax = plt.subplots()
-        line1, = ax.plot(x4, resultado, label='Valor aproximado', marker = '.')
+        line1, = ax.plot(x4, primeiroCaso, label='Caso 1', marker = '.')
+        line2, = ax.plot(x4, segundoCaso, label='Caso 2', marker = '.')
+        line3, = ax.plot(x4, terceiroCaso, label='Caso 3', marker = '.')
         ax.set_title('Valores ex3')
         ax.set_xlabel('Valor de x')
         ax.set_ylabel('Valores obtidos')
