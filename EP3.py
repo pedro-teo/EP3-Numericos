@@ -352,7 +352,6 @@ def main():
         n = 60
         L = 1
         d = 0.1
-        #funcaoQ = "(30/(8*pow(10,-7))) * np.exp(-pow((x-0.5),2)/pow(0.08,2))"
         funcaoQ = "0"
         funcaoQMais  = "100"
         funcaoQMenos = "0"
