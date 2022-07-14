@@ -195,10 +195,6 @@ def main():
         x = np.zeros(n+2)
         for i in range(0, n+2):
             x[i] = i*h
-        
-        vetorNovoUm = np.zeros(n+2)
-        for i in range(0, n+2):
-            vetorNovoUm[i] = resultadoUm[i] - eval(funcaoQ)*293.15
 
         ##  Segundo caso considerado:                              ##
         ##  * Utilizou-se a funcao de Q+(x) descrita no PDF, com   ## 
