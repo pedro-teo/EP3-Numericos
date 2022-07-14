@@ -199,11 +199,11 @@ def main():
         ##    variacao de Sigma na curva obtida.                   ##
         n = 63
         L = 1
-        funcaoQMais  = "(30/(8*pow(10,3))) * np.exp(-pow((x-0.5),2)/pow(0.9,2))"
+        funcaoQMais  = "100 * np.exp(-pow((x-0.5),2)/pow(0.08,2))"
         funcaoQMenos = "0"
         funcaoK = "3.6"
-        funcaoQ = funcaoQMais+"-("+funcaoQMenos+")"
-        funcaoX = funcaoQ
+        funcaoX = funcaoQMais+"-("+funcaoQMenos+")"
+        funcaoQ = "0"
         resultadoDois = calculaMEF(n, L, 0, funcaoX, funcaoK, funcaoK, funcaoQ)
 
         ##  Terceiro caso considerado:                             ##
@@ -213,11 +213,11 @@ def main():
         ##    variacao de Sigma na curva obtida.                   ##
         n = 63
         L = 1
-        funcaoQMais  = "(30/(8*pow(10,3))) * np.exp(-pow((x-0.5),2)/pow(1,2))"
+        funcaoQMais  = "100 * np.exp(-pow((x-0.5),2)/pow(0.016,2))"
         funcaoQMenos = "0"
         funcaoK = "3.6"
-        funcaoQ = funcaoQMais+"-("+funcaoQMenos+")"
-        funcaoX = funcaoQ
+        funcaoX = funcaoQMais+"-("+funcaoQMenos+")"
+        funcaoQ = "0"
         resultadoTres = calculaMEF(n, L, 0, funcaoX, funcaoK, funcaoK, funcaoQ)
 
         ##  Quarto caso considerado:                               ##
@@ -228,13 +228,14 @@ def main():
         ##    (ou seja, um resfriamento menor que aquecimento).    ##
         n = 63
         L = 1
-        funcaoQMais  = "(30/(8*pow(10,-7)))"
-        funcaoQMenos = "(20/(8*pow(10,-7))) * ( np.exp(-pow((x/0.003),2)) + np.exp(-pow((x-1)/0.003,2)) )"
+        funcaoQMais  = "100 * np.exp(-pow((x-0.5),2)/pow(0.2,2))"
+        funcaoQMenos = " 50 * ( np.exp(-pow((x/0.003),2)) + np.exp(-pow((x-1)/0.003,2)) )"
         funcaoK = "3.6"
         funcaoQ = "0"
         funcaoX = funcaoQMais+"-("+funcaoQMenos+")"
         resultadoQuatro = calculaMEF(n, L, 0, funcaoX, funcaoK, funcaoK, funcaoQ)
 
+        ## Está plotando até aqui
         ## CURVA 5 Q PARECE ESTAR CERTA
         n = 63
         L = 1
@@ -286,9 +287,9 @@ def main():
         x1 = np.linspace(0.0, 1.0, num=9)
         fig, ax = plt.subplots()
         line1, = ax.plot(x4, resultadoUm, label='Caso 1', marker = '.')
-        #line2, = ax.plot(x4, resultadoDois, label='Caso 2', marker = '.')
-        #line3, = ax.plot(x4, resultadoTres, label='Caso 3', marker = '.')
-        #line4, = ax.plot(x4, resultadoQuatro, label='Caso 4', marker='.')
+        line2, = ax.plot(x4, resultadoDois, label='Caso 2', marker = '.')
+        line3, = ax.plot(x4, resultadoTres, label='Caso 3', marker = '.')
+        line4, = ax.plot(x4, resultadoQuatro, label='Caso 4', marker='.')
         #line5, = ax.plot(x4, resultadoCinco, label='Caso 5', marker='.')
         
         ##line6, = ax.plot(x4, resultadoSeis, label='Socorro Namie', marker = '.')
