@@ -330,7 +330,7 @@ def main():
         funcaoX = funcaoQMais+"-("+funcaoQMenos+")"
         terceiroCaso = calculaMEF(n, L, d, funcaoX, funcaoKs, funcaoKa, funcaoQ)
 
-        ##  Plot do grafico das 4 series obtidas anteriormente neste exercicio.  ##
+        ##  Plot do grafico das 3 series obtidas anteriormente neste exercicio.  ##
         x4 = np.linspace(0.0, 1.0, num=65)
         fig, ax = plt.subplots()
         line1, = ax.plot(x4, primeiroCaso, label='Caso 1', marker = '.')
