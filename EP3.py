@@ -188,8 +188,8 @@ def main():
         funcaoQMais  = "100"
         funcaoQMenos = "50"
         funcaoK = "3.6"
-        funcaoQ = funcaoQMais+"-("+funcaoQMenos+")"
-        funcaoX = funcaoQ
+        funcaoX = funcaoQMais+"-("+funcaoQMenos+")"
+        funcaoQ = "0"
         resultadoUm = calculaMEF(n, L, 0, funcaoX, funcaoK, funcaoK, funcaoQ)
         h = L/(n+1)
         x = np.zeros(n+2)
