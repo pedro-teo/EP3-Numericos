@@ -360,8 +360,8 @@ def main():
         L = 7
         d = 0
         funcaoQ = "0"
-        funcaoQMais  = "100 * np.exp(-pow(x-(1/2),2)/pow(5,2))"
-        funcaoQMenos = "50 * ( np.exp(-pow((x/10),2)) + np.exp(-pow((x-(1/2))/10,2)) )"
+        funcaoQMais  = "100 * np.exp(-pow(x-("+str(L)+"/2),2)/pow(5,2))"
+        funcaoQMenos = "50 * ( np.exp(-pow((x/10),2)) + np.exp(-pow((x-"+str(L)+")/10,2)) )"
         funcaoX = funcaoQMais+"-("+funcaoQMenos+")"
         funcaoKa = "3.6"
         funcaoKs = "3.6"
