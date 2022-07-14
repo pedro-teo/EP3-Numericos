@@ -389,7 +389,6 @@ def main():
         ax.legend()
         plt.show()
 
-
     ##  Mensagem de erro, para opcao escolhida invalida.  ##
     else:
         print("\nNenhuma opcao valida foi selecionada. Rode novamente o codigo!\n")
