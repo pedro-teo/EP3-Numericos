@@ -16,9 +16,10 @@ def main():
     print("Veja as opcoes disponiveis... ")
     print("1. Secao 4.2 - Validacao")
     print("2. Secao 4.2 - Validacao complementar")
-    print("3. Secao 4.3 - Q(x) constante")
-    print("4. Secao 4.3 - Q(x) com funcao em x")
-    print("5. Secao 4.4 - Equilibrio com variacao de material")
+    print("3. Secao 4.3 - Equilibrio com forcantes de calor")
+    print("4. Secao 4.3 - Equilibrio com variacao de material")
+    print("5. Secao 3.4 - Condicoes de fronteira nao homogeneas")
+    print("6. Secao 3.5 - Intervalo de 0 a L")
     menuChoice = int(input("Digite o numero da opcao desejada para calculos: "))
 
     ##  Resolucao do item 4.2, da primeira validacao disponibilizada.  ##
@@ -365,7 +366,7 @@ def main():
         ax.legend()
         plt.show()
 
-    ##  Caso em que o intervalo é L diferente de 1.  ##
+    ##  Caso em que o intervalo é 0 a L.  ##
     elif(menuChoice==6):
         n = 63
         L = 7
