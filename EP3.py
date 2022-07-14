@@ -194,7 +194,7 @@ def main():
 
         ##  Segundo caso considerado:                              ##
         ##  * Utilizou-se a funcao de Q+(x) descrita no PDF, com   ## 
-        ##    Q+0 = 30W / (20*20*2 mm3) e Sigma = 0.08.            ##
+        ##    Q+0 = 100W e Sigma = 0.08.                           ##
         ##  * Considerou-se Q- = 0, para analisar o efeito da      ##
         ##    variacao de Sigma na curva obtida.                   ##
         n = 63
@@ -208,7 +208,7 @@ def main():
 
         ##  Terceiro caso considerado:                             ##
         ##  * Utilizou-se a funcao de Q+(x) descrita no PDF, com   ## 
-        ##    Q+0 = 30W / (20*20*2 mm3) e Sigma = 0.015.            ##
+        ##    Q+0 = 30W e Sigma = 0.016.                           ##
         ##  * Considerou-se Q- = 0, para analisar o efeito da      ##
         ##    variacao de Sigma na curva obtida.                   ##
         n = 63
@@ -220,12 +220,9 @@ def main():
         funcaoQ = "0"
         resultadoTres = calculaMEF(n, L, 0, funcaoX, funcaoK, funcaoK, funcaoQ)
 
-        ##  Quarto caso considerado:                               ##
-        ##  * Utilizou-se a funcao de Q+(x) descrita no PDF, com   ## 
-        ##    Q+0 = 30W / (20*20*2 mm3) e Sigma = 0.08.            ##
-        ##  * Utilizou-se a funcao de Q-(x), descrita no PDF, com  ##
-        ##    Q-0 = 30W / (20*20*2 mm3)                ##
-        ##    (ou seja, um resfriamento menor que aquecimento).    ##
+        ##  Quarto caso considerado:                             ##
+        ##  Utilizou-se Q+(x) = 0 e Q-(x) = 20, para estudar o   ## 
+        ##  efeito de Q-(x) na curva correspondente.             ##
         n = 63
         L = 1
         funcaoQMais  = "0"
@@ -237,10 +234,9 @@ def main():
 
         ##  Quinto caso considerado:                               ##
         ##  * Utilizou-se a funcao de Q+(x) descrita no PDF, com   ## 
-        ##    Q+0 = 30W / (20*20*2 mm3) e Sigma = 0.08.            ##
+        ##    Q+0 = 30W e Sigma = 0.2.                             ##
         ##  * Utilizou-se a funcao de Q-(x), descrita no PDF, com  ##
-        ##    Q-0 = 30W / (20*20*2 mm3)                ##
-        ##    (ou seja, um resfriamento menor que aquecimento).    ##
+        ##    Q-0 = 30W e Theta = 0.003.                           ##
         n = 63
         L = 1
         funcaoQMais  = "100 * np.exp(-pow((x-0.5),2)/pow(0.2,2))"
@@ -250,38 +246,32 @@ def main():
         funcaoX = funcaoQMais+"-("+funcaoQMenos+")"
         resultadoCinco = calculaMEF(n, L, 0, funcaoX, funcaoK, funcaoK, funcaoQ)
         
-        ##  Sexto caso considerado:                               ##
+        ##  Sexto caso considerado:                                ##
+        ##  * Utilizou-se a funcao de Q+(x) descrita no PDF, com   ## 
+        ##    Q+0 = 100W e Sigma = 10.                             ##
+        ##  * Utilizou-se a funcao de Q-(x), descrita no PDF, com  ##
+        ##    Q-0 = 50W e Theta = 5.                               ##
         n = 63
         L = 1
+        funcaoQMais  = "100*np.exp(-pow(x-(1/2),2)/pow(10,2))"
+        funcaoQMenos = "50*(np.exp(-(np.power(x,2)/np.power(5,2))) + np.exp(-(np.power(x-1,2)/np.power(5,2))) )"
         funcaoK = "3.6"
         funcaoQ = "0"
-        funcaoX = "100*np.exp(-pow(x-(1/2),2)/pow(10,2)) - 50*(np.exp(-(np.power(x,2)/np.power(5,2))) + np.exp(-(np.power(x-1,2)/np.power(5,2))) )"
+        funcaoX = funcaoQMais+"-("+funcaoQMenos+")"
         resultadoSeis = calculaMEF(n, L, 0, funcaoX, funcaoK, funcaoK, funcaoQ)
 
-        xNamie = np.linspace(0.0, 1.0, num=62)
-        x4 = np.linspace(0.0, 1.0, num=65)
-        x1 = np.linspace(0.0, 1.0, num=9)
+        ##  Plot de todas as curvas acima calculadas.  ##
+        eixoX = np.linspace(0.0, 1.0, num=65)
         fig, ax = plt.subplots()
-        line1, = ax.plot(x4, resultadoUm, label='Caso 1', marker = '.')
-        line2, = ax.plot(x4, resultadoDois, label='Caso 2', marker = '.')
-        line3, = ax.plot(x4, resultadoTres, label='Caso 3', marker = '.')
-        line4, = ax.plot(x4, resultadoQuatro, label='Caso 4', marker='.')
-        line5, = ax.plot(x4, resultadoCinco, label='Caso 5', marker='.')
-        
-        line6, = ax.plot(x4, resultadoSeis, label='Caso socorro', marker = '.')
-        #line6, = ax.plot(x1, resultadoSeis, label='Socorro Namie', marker = '.')
-        #line6, = ax.plot(xNamie, resultadoNamie, label='Socorro Namie', marker = '.')
-        #line7, = ax.plot(xNamie, resultadoNamie2, label='Socorro Namie', marker = '.')
-
-
-        ax.set_title('Análise do efeito da variação de Q(x)')
-        ax.set_xlabel('Posicao')
-        ax.set_ylabel('Valor obtido')
-
-        #fig, ax2 = plt.subplots()
-        #line1, = ax2.plot(x, vetoruAproximado, label='Valor aproximado', marker = '.')
-        #line2, = ax2.plot(x, vetoruExato, label='Valor exato', marker = '.')
-
+        line1, = ax.plot(eixoX, resultadoUm, label='Caso 1', marker = '.')
+        line2, = ax.plot(eixoX, resultadoDois, label='Caso 2', marker = '.')
+        line3, = ax.plot(eixoX, resultadoTres, label='Caso 3', marker = '.')
+        line4, = ax.plot(eixoX, resultadoQuatro, label='Caso 4', marker='.')
+        line5, = ax.plot(eixoX, resultadoCinco, label='Caso 5', marker='.')
+        line6, = ax.plot(eixoX, resultadoSeis, label='Caso 6', marker = '.')
+        ax.set_title('Análise do efeito da variação de (Q+ - Q-)')
+        ax.set_xlabel('Posicao no eixo x')
+        ax.set_ylabel('Valor estimado')
         ax.legend()
         plt.show()
 
